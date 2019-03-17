@@ -1,0 +1,41 @@
+
+DietMind
+
+Summary: Provides people with exact amounts of selected foods to eat in order to get the right amounts of nutrients.
+
+Goals:
+
+	Who is the app for?
+
+		Health-conscious people who want to make sure their bodies have all the building blocks they need.
+
+	What do they expect to find or do in this app?
+
+		They will choose all the foods they like and how much of each they are willing to eat. Then the app will say how much of each food they need to eat to get all of the nutrients a person needs in a day.
+
+		In the first development round, the %DV nutrient requirements will be used. Once that is all working, a new feature will be added to tailor the nutrient requirements to themself.
+
+		If the user doesn't choose enough foods to cover all nutrients, the app will tell them which nutrients they are missing.
+
+	Is this app's primary aim to inform, to sell, or to amuse?
+
+		To inform
+
+	Does the app need to clearly convey a brand’s core message, or is it part of a wider branding strategy with its own unique focus?
+
+		The app's brand should convey several things:
+
+			* Health
+
+			* Transparency
+
+				** Metrics should be used to convince the user that the calculations are correct. For instance, we need to clearly show how much of each required nutrient is in each food and how much of each food contributes to achieving each nutrient requirement
+
+				** Need to be clear that the app is not a dietician, nor is it a replacement for one. The author is not a doctor of medicine
+
+			* The guy who wrote it is a talented guy and you should hire him now to work on data science and UIs
+
+	What competitor apps, if any, exist, and how should this site be inspired by/different than, those competitors?
+
+		There are tons of diet tracking apps, but none of them can automatically tell you how much of each food to eat in order to achieve ALL of your nutrient requirements. Most only focus on macronutrients. Need to find out if other apps let you punch in the foods you want and then give you a limit for how much to eat.
+
