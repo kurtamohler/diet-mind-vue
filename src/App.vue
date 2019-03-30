@@ -1,17 +1,25 @@
 <template>
-  <v-app :dark="dark">
+  <v-app :dark="darkTheme">
+    <v-navigation-drawer
+      v-model="settingsOpen"
+      :hidden="!settingsOpen"
+      right
+      app
+      class="px-4"
+    >
+      <v-switch
+        v-model="darkTheme"
+        label="Dark Theme"
+      ></v-switch>
+    </v-navigation-drawer>
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>DIET</span>
-        <span class="font-weight-light">MIND</span>
+        <span class="font-weight-light blue--text">MIND</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
+      <v-btn icon @click="settingsOpen = !settingsOpen">
+        <v-icon>mdi-settings</v-icon>
       </v-btn>
     </v-toolbar>
 
@@ -29,9 +37,22 @@ export default {
   components: {
    FoodSelect
   },
+  watch: {
+    darkTheme: {
+      handler() {
+        localStorage.setItem('darkTheme', JSON.stringify(this.darkTheme))
+      }
+    }
+  },
+  mounted() {
+    if (localStorage.getItem('darkTheme')) {
+      this.darkTheme = JSON.parse(localStorage.getItem('darkTheme'))
+    }
+  },
   data () {
     return {
-      dark: true
+      darkTheme: true,
+      settingsOpen: false
     }
   }
 }
