@@ -2,10 +2,6 @@
   <v-container>
     <v-card>
       <v-card-title class="headline font-weight-regular">Your Menu</v-card-title>
-    </v-card>
-
-    <!-- Selected foods -->
-    <v-card>
       <v-layout row wrap>
         <v-flex xs12
           v-for="(food, ind) in selectedFoods"
@@ -14,7 +10,7 @@
           <v-layout row wrap>
             <v-flex xs2 sm1>
               <v-btn icon small @click="unselectFood(ind)" :data="food">
-                <v-icon>mdi-close-circle</v-icon>
+                <v-icon color="red">mdi-close</v-icon>
               </v-btn>
             </v-flex>
             <v-flex xs10 sm11>
@@ -27,11 +23,12 @@
     </v-card>
 
     <!-- Food search results -->
-    <v-card>
+    <v-card class="my-2">
       <v-layout row wrap>
         <v-flex xs12>
           <v-text-field
-            label="Search for foods (you can try a UPC!)"
+            class="mx-4 mt-2"
+            label="Search for foods (try some key words or a UPC)"
             v-on:input="debouncedSearchFoods"
             v-model="foodSearchTerm"
             id="#food-search-text-field"
@@ -44,7 +41,7 @@
           <v-layout row wrap>
             <v-flex  xs2 sm1>
               <v-btn icon small @click="selectFood(food)" :data="food">
-                <v-icon color="blue">mdi-plus-circle</v-icon>
+                <v-icon color="blue">mdi-plus</v-icon>
               </v-btn>
             </v-flex>
             <v-flex xs10 sm11>
@@ -95,21 +92,22 @@ export default {
   },
   created: function() {
     this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
+
+    ndb.load_all_nutrients(function (nutrients) {
+      console.log(nutrients)
+    })
   },
   methods: {
-    updateSearchResults: function(response) {
-      if (response.hasOwnProperty('list')) {
-        var resp_list = response.list
+    updateSearchResults: function(foods) {
+      if (foods.length) {
+        this.foodSearchResults = foods
 
-        if (resp_list.hasOwnProperty('item')) {
-          this.foodSearchResults = resp_list.item
-          return
-        }
+      } else {
+        console.warn('failed search term: ' + this.foodSearchTerm)
+        console.warn(foods)
+        this.foodSearchResults = []
       }
 
-      console.warn('failed search term: ' + this.foodSearchTerm)
-      console.warn(response)
-      this.foodSearchResults = []
     },
     searchFoods: function() {
       // VueScrollTo.scrollTo(event.target)

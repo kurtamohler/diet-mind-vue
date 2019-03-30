@@ -1,5 +1,5 @@
 // A Javascript interface to the FDA's NDB
-export {search_foods};
+export {search_foods, load_all_nutrients};
 
 var ndb_base_url = 'https://api.nal.usda.gov/ndb/';
 
@@ -61,6 +61,12 @@ function ndb_query(ndb_func, query, callback) {
 		})
 }
 
+// This function will be attached to all foods.
+// It will load up the nutrition data for that
+// food when called
+function load_food_nutrition(ndbno, callback) {
+
+}
 
 function search_foods(search_str, callback) {
 	// console.log('searching for ' + search_str);
@@ -69,7 +75,36 @@ function search_foods(search_str, callback) {
 		'sort': 'n',
 		'max': 100,
 		'offset': 0 
-	}, callback);
+	}, function(resp_json) {
+		var foods = []
+	    if (resp_json.hasOwnProperty('list')) {
+	        var resp_list = resp_json.list
+
+	        if (resp_list.hasOwnProperty('item')) {
+				foods = resp_list.item
+				console.log(foods);
+
+				for (var ind in foods) {
+
+					foods[ind].load_nutrients = () => {
+						load_food_nutrition()
+					}
+				}
+	        }
+	    }
+
+	    callback(foods)
+
+	});
+}
+
+
+function load_all_nutrients(callback) {
+	ndb_query('list', {
+		'lt': 'n',
+		'sort': 'n',
+		'max': 1000
+	}, callback)
 }
 
 /*
