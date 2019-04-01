@@ -1,5 +1,7 @@
 <template>
   <v-container>
+
+    <!-- Selected foods list -->
     <v-card>
       <v-card-title class="headline font-weight-regular">Your Menu</v-card-title>
       <v-layout row wrap>
@@ -7,22 +9,22 @@
           v-for="(food, ind) in selectedFoods"
           :key="ind"
         >
+          <v-divider></v-divider>
           <v-layout row wrap>
             <v-flex xs2 sm1>
               <v-btn icon small @click="unselectFood(ind)" :data="food">
-                <v-icon color="red">mdi-close</v-icon>
+                <v-icon color="blue">mdi-close</v-icon>
               </v-btn>
             </v-flex>
             <v-flex xs10 sm11>
               <Food :food="food"></Food>
             </v-flex>
           </v-layout>
-          <v-divider v-if="ind + 1 < selectedFoods.length" :key="`divider-${ind}`"></v-divider>
         </v-flex>
       </v-layout>
     </v-card>
 
-    <!-- Food search results -->
+    <!-- Food search bar -->
     <v-card class="my-2">
       <v-layout row wrap>
         <v-flex xs12>
@@ -38,6 +40,7 @@
           v-for="(food, ind) in foodSearchResults"
           :key="ind"
         >
+          <v-divider></v-divider>
           <v-layout row wrap>
             <v-flex  xs2 sm1>
               <v-btn icon small @click="selectFood(food)" :data="food">
@@ -48,7 +51,6 @@
               <Food :food="food"></Food>
             </v-flex>
           </v-layout>
-          <v-divider v-if="ind + 1 < selectedFoods.length" :key="`divider-${ind}`"></v-divider>
         </v-flex>
       </v-layout>
     </v-card>
@@ -70,6 +72,7 @@ export default {
   components: {
     Food
   },
+
   data: function () {
     return {
       foodSearchTerm: '',
@@ -77,6 +80,7 @@ export default {
       selectedFoods: []
     }
   },
+
   watch: {
     selectedFoods: {
       handler() {
@@ -85,30 +89,31 @@ export default {
       deep: true
     }
   },
+
   mounted() {
     if (localStorage.getItem('selectedFoods')) {
       this.selectedFoods = JSON.parse(localStorage.getItem('selectedFoods'))
     }
   },
+
   created: function() {
     this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
 
-    ndb.load_all_nutrients(function (nutrients) {
-      console.log(nutrients)
-    })
+    // ndb.load_all_nutrients(function (nutrients) {
+    //   console.log(nutrients)
+    // })
   },
+
   methods: {
+
     updateSearchResults: function(foods) {
-      if (foods.length) {
-        this.foodSearchResults = foods
-
-      } else {
-        console.warn('failed search term: ' + this.foodSearchTerm)
-        console.warn(foods)
-        this.foodSearchResults = []
-      }
-
+      // if (foods.length == 0) {
+      //   console.warn('failed search term: ' + this.foodSearchTerm)
+      //   console.warn(foods)
+      // }
+      this.foodSearchResults = foods
     },
+
     searchFoods: function() {
       // VueScrollTo.scrollTo(event.target)
 
@@ -122,11 +127,17 @@ export default {
         this.foodSearchResults = []
       }
     },
+
     selectFood: function(food) {
       this.foodSearchTerm = ''
       this.foodSearchResults = []
-      this.selectedFoods.push(food)
+
+      // Load the food's nutrients before adding it to selected foods array
+      food.load_nutrients(() => {
+        this.selectedFoods.push(food)
+      })
     },
+
     unselectFood: function(ind) {
       this.selectedFoods.splice(ind, 1)
     }

@@ -57,3 +57,13 @@ export default {
   }
 }
 </script>
+
+<style>
+  /*
+    By default, vuetify always shows a scrollbar, even if it
+    isn't needed. This fixes that.
+  */
+  html {
+    overflow-y: auto
+  }
+</style>
