@@ -1,5 +1,5 @@
 // A Javascript interface to the FDA's NDB
-export {search_foods, load_all_nutrients};
+export {search_foods, load_all_nutrients, Food};
 
 // The URL of NDB
 var ndb_base_url = 'https://api.nal.usda.gov/ndb/';

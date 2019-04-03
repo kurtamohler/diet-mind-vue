@@ -92,7 +92,11 @@ export default {
 
   mounted() {
     if (localStorage.getItem('selectedFoods')) {
-      this.selectedFoods = JSON.parse(localStorage.getItem('selectedFoods'))
+      var selectedFoodsJSON = JSON.parse(localStorage.getItem('selectedFoods'))
+
+      for (var ind = 0; ind < selectedFoodsJSON.length; ind++) {
+        this.selectedFoods.push(new ndb.Food(selectedFoodsJSON[ind]))
+      }
     }
   },
 
