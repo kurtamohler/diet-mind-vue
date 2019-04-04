@@ -21,8 +21,8 @@
           {{food.amount}} {{food.unit}}
       </b>
       <div
-        v-for="(nutrient, ind) in food.nutrients"
-        :key="ind"
+        v-for="(nutrient, id) in food.nutrients"
+        :key="id"
       >
         <v-divider></v-divider>
         <v-layout row wrap align-center>
@@ -54,7 +54,7 @@
 
     methods: {
       toggleDetails: function() {
-        // console.log(JSON.parse(JSON.stringify(this.food)))
+        // console.log(JSON.parse(JSON.stringify(this.food.nutrients)))
 
         this.collapsed = !this.collapsed
 

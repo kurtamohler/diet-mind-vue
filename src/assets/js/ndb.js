@@ -100,8 +100,7 @@ class Food {
         }
 
         if (!this.nutrients_loaded) {
-            this.nutrients_loaded = false
-            this.nutrients = []
+            this.nutrients = {}
         }
     }
 
@@ -113,7 +112,9 @@ class Food {
                 this.ndbno,
                 (nutrients_json) => {
                     for (var ind = 0; ind < nutrients_json.length; ind++) {
-                        this.nutrients.push(new Nutrient(nutrients_json[ind]))
+                        // this.nutrients.push()
+                        var id = parseInt(nutrients_json[ind].nutrient_id)
+                        this.nutrients[id] = new Nutrient(nutrients_json[ind])
                         this.nutrients_loaded = true
                     }
 
@@ -150,8 +151,6 @@ function search_foods(search_str, callback) {
 
                 for (var ind = 0; ind < foods_json.length; ind++) {
                     foods.push(new Food(foods_json[ind]))
-
-                    foods[ind].nutrients = []
                 }
             }
         }

@@ -1,5 +1,6 @@
 <template>
   <v-app :dark="darkTheme">
+    <!-- Settings menu -->
     <v-navigation-drawer
       v-model="settingsOpen"
       :hidden="!settingsOpen"
@@ -13,6 +14,8 @@
         label="Dark Theme"
       ></v-switch>
     </v-navigation-drawer>
+
+    <!-- navigation bar -->
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>DIET</span>
@@ -25,18 +28,36 @@
     </v-toolbar>
 
     <v-content>
-      <FoodSelect @foodsSelected="foodsSelected" />
+
+
+      <v-tabs>
+        <v-tab ripple>
+          Food
+        </v-tab>
+        <v-tab ripple>
+          Nutrition
+        </v-tab>
+        <v-tab-item>
+          <FoodSelect @foodsSelected="foodsSelected" />
+        </v-tab-item>
+        <v-tab-item>
+          <NutritionSelect />
+        </v-tab-item>
+      </v-tabs>
+
     </v-content>
   </v-app>
 </template>
 
 <script>
 import FoodSelect from './components/FoodSelect'
+import NutritionSelect from './components/NutritionSelect'
 
 export default {
   name: 'App',
   components: {
-   FoodSelect
+    FoodSelect,
+    NutritionSelect
   },
 
   watch: {
