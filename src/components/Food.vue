@@ -2,9 +2,9 @@
   <div>
     <v-layout row wrap align-center class="py-1">
       <v-flex xs10 sm11>
-        <h3 class="text-sm-left">
+        <div class="text-sm-left">
           {{food.name}}
-        </h3>
+        </div>
       </v-flex>
       <v-flex xs2 sm1>
         <v-btn small icon @click="toggleDetails">
@@ -26,10 +26,10 @@
       >
         <v-divider></v-divider>
         <v-layout row wrap align-center>
-          <v-flex xs4>
+          <v-flex class="pr-2" xs4>
             <b>{{nutrient.name}}</b>
           </v-flex>
-          <v-flex xs4>
+          <v-flex xs6>
             {{nutrient.value}}
             {{nutrient.unit}}
           </v-flex>
@@ -51,7 +51,7 @@
         collapsedFalseIcon: "mdi-dots-vertical"
       }
     },
-    
+
     methods: {
       toggleDetails: function() {
         // console.log(JSON.parse(JSON.stringify(this.food)))

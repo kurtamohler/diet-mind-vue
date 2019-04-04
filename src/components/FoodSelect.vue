@@ -30,7 +30,7 @@
         <v-flex xs12>
           <v-text-field
             class="mx-4 mt-2"
-            label="Search for foods (try some key words or a UPC)"
+            label="Search foods (key words or UPC)"
             v-on:input="debouncedSearchFoods"
             v-model="foodSearchTerm"
             id="#food-search-text-field"
@@ -41,7 +41,7 @@
           :key="ind"
         >
           <v-divider></v-divider>
-          <v-layout row wrap align-center>
+          <v-layout row wrap>
             <v-flex  xs2 sm1>
               <v-btn icon small @click="selectFood(food)" :data="food">
                 <v-icon color="blue">mdi-plus</v-icon>
@@ -97,7 +97,7 @@ export default {
       for (var ind = 0; ind < selectedFoodsJSON.length; ind++) {
         this.selectedFoods.push(new ndb.Food(selectedFoodsJSON[ind]))
       }
-      
+
       this.$emit('foodsSelected', this.selectedFoods)
     }
   },
