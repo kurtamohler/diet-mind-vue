@@ -17,32 +17,25 @@
       :hidden="collapsed"
     >
       <h3 class="pb-1">Nutrition</h3>
-      <b v-if="food.amount">Amount:
+      <b>Serving size
           {{food.amount}} {{food.unit}}
       </b>
-      <div
-        v-for="(nutrient, id) in food.nutrients"
-        :key="id"
-      >
-        <v-divider></v-divider>
-        <v-layout row wrap align-center>
-          <v-flex class="pr-2" xs4>
-            <b>{{nutrient.name}}</b>
-          </v-flex>
-          <v-flex xs6>
-            {{nutrient.value}}
-            {{nutrient.unit}}
-          </v-flex>
-        </v-layout>
-      </div>
+      <NutritionDisplay
+        v-if="food.nutrients_loaded"
+        :nutrients="food.nutrients" />
     </div>
   </div>
 </template>
 
 
 <script>
+  import NutritionDisplay from './NutritionDisplay'
   export default {
     props: ['food'],
+
+    components: {
+      NutritionDisplay
+    },
 
     data: function() {
       return {
@@ -55,11 +48,14 @@
     methods: {
       toggleDetails: function() {
         // console.log(JSON.parse(JSON.stringify(this.food.nutrients)))
+        // console.log(JSON.stringify(this.food.nutrients, null, 2))
 
-        this.collapsed = !this.collapsed
 
         // Load nutrients in case they haven't been yet
-        this.food.load_nutrients()
+        this.food.load_nutrients(() => {
+          this.collapsed = !this.collapsed
+
+        })
 
       }
     }

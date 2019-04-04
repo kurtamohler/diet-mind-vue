@@ -57,9 +57,7 @@ function ndb_query(ndb_func, query, callback) {
         })
 }
 
-// This function will be attached to all foods.
-// It will load up the nutrition data for that
-// food when called
+// Load the nutrition info for a food
 function load_food_nutrients(ndbno, callback) {
     ndb_query('V2/reports', {
         'ndbno': ndbno,
@@ -93,6 +91,7 @@ class Nutrient {
     }
 }
 
+
 class Food {
     constructor(food_json) {
         for (var prop in food_json) {
@@ -113,7 +112,7 @@ class Food {
                 (nutrients_json) => {
                     for (var ind = 0; ind < nutrients_json.length; ind++) {
                         // this.nutrients.push()
-                        var id = parseInt(nutrients_json[ind].nutrient_id)
+                        var id = nutrients_json[ind].nutrient_id.toString()
                         this.nutrients[id] = new Nutrient(nutrients_json[ind])
                         this.nutrients_loaded = true
                     }

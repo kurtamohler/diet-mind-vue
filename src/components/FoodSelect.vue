@@ -106,7 +106,7 @@ export default {
     this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
 
     // ndb.load_all_nutrients(function (nutrients) {
-    //   console.log(nutrients)
+    //   console.log(JSON.stringify(nutrients, null, 2))
     // })
   },
 
