@@ -41,7 +41,7 @@
           :key="ind"
         >
           <v-divider></v-divider>
-          <v-layout row wrap>
+          <v-layout row wrap align-center>
             <v-flex  xs2 sm1>
               <v-btn icon small @click="selectFood(food)" :data="food">
                 <v-icon color="blue">mdi-plus</v-icon>
@@ -97,6 +97,8 @@ export default {
       for (var ind = 0; ind < selectedFoodsJSON.length; ind++) {
         this.selectedFoods.push(new ndb.Food(selectedFoodsJSON[ind]))
       }
+      
+      this.$emit('foodsSelected', this.selectedFoods)
     }
   },
 
@@ -139,11 +141,13 @@ export default {
       // Load the food's nutrients before adding it to selected foods array
       food.load_nutrients(() => {
         this.selectedFoods.push(food)
+        this.$emit('foodsSelected', this.selectedFoods)
       })
     },
 
     unselectFood: function(ind) {
       this.selectedFoods.splice(ind, 1)
+      this.$emit('foodsSelected', this.selectedFoods)
     }
   }
 

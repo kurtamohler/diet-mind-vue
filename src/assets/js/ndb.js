@@ -66,6 +66,7 @@ function load_food_nutrients(ndbno, callback) {
         'type': 'f'
     }, function(resp_json) {
         var nutrients_json = []
+        // console.log(JSON.parse(JSON.stringify(resp_json)))
 
         if (resp_json.hasOwnProperty('foods')) {
             var foods_json = resp_json['foods']
@@ -98,8 +99,10 @@ class Food {
             this[prop] = food_json[prop]
         }
 
-        this.nutrients_loaded = false
-        this.nutrients = []
+        if (!this.nutrients_loaded) {
+            this.nutrients_loaded = false
+            this.nutrients = []
+        }
     }
 
     // Load nutrients only if they haven't been loaded yet,
@@ -113,6 +116,10 @@ class Food {
                         this.nutrients.push(new Nutrient(nutrients_json[ind]))
                         this.nutrients_loaded = true
                     }
+
+                    // All NDB nutrient values are per 100g of the food
+                    this.amount = 100
+                    this.unit = 'g'
 
                     if (callback) {
                         callback(this.nutrients)
