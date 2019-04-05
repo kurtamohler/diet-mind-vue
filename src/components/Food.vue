@@ -16,10 +16,8 @@
     <div
       :hidden="collapsed"
     >
-      <h3 class="pb-1">Nutrition</h3>
-      <b>Serving size
-          {{food.amount}} {{food.unit}}
-      </b>
+      <h3 class="pb-1 pt-2">Nutrition</h3>
+      <b>Serving size {{food.amount}} {{food.unit}}</b>
       <NutritionDisplay
         v-if="food.nutrients_loaded"
         :nutrients="food.nutrients" />

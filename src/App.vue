@@ -7,6 +7,7 @@
       right
       app
       class="pa-4"
+      disable-resize-watcher
     >
       <h2>Settings</h2>
       <v-switch
