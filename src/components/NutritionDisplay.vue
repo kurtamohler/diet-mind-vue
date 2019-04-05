@@ -37,9 +37,6 @@
           }}
         </v-flex>
         <v-flex xs6>
-<!--           {{nutrient.value}}
-          {{nutrient.unit}}
- -->     
           {{
             nutrients[nutrient_info['id']] ?
             nutrients[nutrient_info['id']].value : '0'
