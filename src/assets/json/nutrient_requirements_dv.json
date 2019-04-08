@@ -1,0 +1,953 @@
+{
+  "203": {
+    "name": "Protein",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "204": {
+    "name": "Total lipid (fat)",
+    "unit": "g",
+    "active": true,
+    "min_value": 0,
+    "has_max_value": true,
+    "max_value": 65
+  },
+  "205": {
+    "name": "Carbohydrate, by difference",
+    "unit": "g",
+    "active": true,
+    "min_value": 280,
+    "has_max_value": true,
+    "max_value": 320
+  },
+  "207": {
+    "name": "Ash",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "208": {
+    "name": "Energy",
+    "unit": "kcal",
+    "active": true,
+    "min_value": 1900,
+    "has_max_value": true,
+    "max_value": 2100
+  },
+  "210": {
+    "name": "Sucrose",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "211": {
+    "name": "Glucose (dextrose)",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "212": {
+    "name": "Fructose",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "213": {
+    "name": "Lactose",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "214": {
+    "name": "Maltose",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "221": {
+    "name": "Alcohol, ethyl",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "255": {
+    "name": "Water",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "262": {
+    "name": "Caffeine",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "263": {
+    "name": "Theobromine",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "268": {
+    "name": "Energy",
+    "unit": "kJ",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "269": {
+    "name": "Sugars, total",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "287": {
+    "name": "Galactose",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "291": {
+    "name": "Fiber, total dietary",
+    "unit": "g",
+    "active": false,
+    "min_value": 25,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "301": {
+    "name": "Calcium, Ca",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "303": {
+    "name": "Iron, Fe",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "304": {
+    "name": "Magnesium, Mg",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "305": {
+    "name": "Phosphorus, P",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "306": {
+    "name": "Potassium, K",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "307": {
+    "name": "Sodium, Na",
+    "unit": "mg",
+    "active": true,
+    "min_value": 0,
+    "has_max_value": true,
+    "max_value": 2400
+  },
+  "309": {
+    "name": "Zinc, Zn",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "312": {
+    "name": "Copper, Cu",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "313": {
+    "name": "Fluoride, F",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "315": {
+    "name": "Manganese, Mn",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "317": {
+    "name": "Selenium, Se",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "318": {
+    "name": "Vitamin A, IU",
+    "unit": "IU",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "319": {
+    "name": "Retinol",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "320": {
+    "name": "Vitamin A, RAE",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "321": {
+    "name": "Carotene, beta",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "322": {
+    "name": "Carotene, alpha",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "323": {
+    "name": "Vitamin E (alpha-tocopherol)",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "324": {
+    "name": "Vitamin D",
+    "unit": "IU",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "326": {
+    "name": "Vitamin D3 (cholecalciferol)",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "328": {
+    "name": "Vitamin D (D2 + D3)",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "334": {
+    "name": "Cryptoxanthin, beta",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "337": {
+    "name": "Lycopene",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "338": {
+    "name": "Lutein + zeaxanthin",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "341": {
+    "name": "Tocopherol, beta",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "342": {
+    "name": "Tocopherol, gamma",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "343": {
+    "name": "Tocopherol, delta",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "344": {
+    "name": "Tocotrienol, alpha",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "345": {
+    "name": "Tocotrienol, beta",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "346": {
+    "name": "Tocotrienol, gamma",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "347": {
+    "name": "Tocotrienol, delta",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "401": {
+    "name": "Vitamin C, total ascorbic acid",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "404": {
+    "name": "Thiamin",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "405": {
+    "name": "Riboflavin",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "406": {
+    "name": "Niacin",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "410": {
+    "name": "Pantothenic acid",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "415": {
+    "name": "Vitamin B-6",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "417": {
+    "name": "Folate, total",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "418": {
+    "name": "Vitamin B-12",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "421": {
+    "name": "Choline, total",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "430": {
+    "name": "Vitamin K (phylloquinone)",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "431": {
+    "name": "Folic acid",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "432": {
+    "name": "Folate, food",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "435": {
+    "name": "Folate, DFE",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "454": {
+    "name": "Betaine",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "501": {
+    "name": "Tryptophan",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "502": {
+    "name": "Threonine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "503": {
+    "name": "Isoleucine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "504": {
+    "name": "Leucine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "505": {
+    "name": "Lysine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "506": {
+    "name": "Methionine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "507": {
+    "name": "Cystine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "508": {
+    "name": "Phenylalanine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "509": {
+    "name": "Tyrosine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "510": {
+    "name": "Valine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "511": {
+    "name": "Arginine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "512": {
+    "name": "Histidine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "513": {
+    "name": "Alanine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "514": {
+    "name": "Aspartic acid",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "515": {
+    "name": "Glutamic acid",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "516": {
+    "name": "Glycine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "517": {
+    "name": "Proline",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "518": {
+    "name": "Serine",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "573": {
+    "name": "Vitamin E, added",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "578": {
+    "name": "Vitamin B-12, added",
+    "unit": "µg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "601": {
+    "name": "Cholesterol",
+    "unit": "mg",
+    "active": true,
+    "min_value": 0,
+    "has_max_value": true,
+    "max_value": 300
+  },
+  "605": {
+    "name": "Fatty acids, total trans",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "606": {
+    "name": "Fatty acids, total saturated",
+    "unit": "g",
+    "active": true,
+    "min_value": 0,
+    "has_max_value": true,
+    "max_value": 20
+  },
+  "607": {
+    "name": "4:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "608": {
+    "name": "6:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "609": {
+    "name": "8:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "610": {
+    "name": "10:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "611": {
+    "name": "12:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "612": {
+    "name": "14:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "613": {
+    "name": "16:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "614": {
+    "name": "18:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "615": {
+    "name": "20:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "617": {
+    "name": "18:1 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "618": {
+    "name": "18:2 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "619": {
+    "name": "18:3 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "620": {
+    "name": "20:4 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "621": {
+    "name": "22:6 n-3 (DHA)",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "624": {
+    "name": "22:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "625": {
+    "name": "14:1",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "626": {
+    "name": "16:1 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "627": {
+    "name": "18:4",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "628": {
+    "name": "20:1",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "629": {
+    "name": "20:5 n-3 (EPA)",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "630": {
+    "name": "22:1 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "631": {
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "636": {
+    "name": "Phytosterols",
+    "unit": "mg",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "645": {
+    "name": "Fatty acids, total monounsaturated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "646": {
+    "name": "Fatty acids, total polyunsaturated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "652": {
+    "name": "15:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "653": {
+    "name": "17:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "654": {
+    "name": "24:0",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "671": {
+    "name": "24:1 c",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "672": {
+    "name": "20:2 n-6 c,c",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "687": {
+    "name": "17:1",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "689": {
+    "name": "20:3 undifferentiated",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "697": {
+    "name": "15:1",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  },
+  "858": {
+    "name": "22:4",
+    "unit": "g",
+    "active": false,
+    "min_value": 0,
+    "has_max_value": false,
+    "max_value": 0
+  }
+}

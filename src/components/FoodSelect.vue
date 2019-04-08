@@ -17,7 +17,10 @@
               </v-btn>
             </v-flex>
             <v-flex xs10 sm11>
-              <Food :food="food"></Food>
+              <Food
+                :food="food"
+                showMinMaxSettings
+              ></Food>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -34,6 +37,9 @@
             v-on:input="debouncedSearchFoods"
             v-model="foodSearchTerm"
             id="#food-search-text-field"
+            :loading="searchIsLoading"
+            clearable
+            clear-icon="mdi-close"
           ></v-text-field>
         </v-flex>
         <v-flex xs12
@@ -77,7 +83,8 @@ export default {
     return {
       foodSearchTerm: '',
       foodSearchResults: [],
-      selectedFoods: []
+      selectedFoods: [],
+      searchIsLoading: false
     }
   },
 
@@ -118,12 +125,14 @@ export default {
       //   console.warn(foods)
       // }
       this.foodSearchResults = foods
+      this.searchIsLoading = false
     },
 
     searchFoods: function() {
       // VueScrollTo.scrollTo(event.target)
 
       if (this.foodSearchTerm) {
+        this.searchIsLoading = true
         ndb.search_foods(
           this.foodSearchTerm,
           this.updateSearchResults

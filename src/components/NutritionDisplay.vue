@@ -7,11 +7,11 @@
       :key="nutrient_group"
       class="pr-3 pb-2"
     >
-      <v-card class="ma-1" elevation="3">
-        <div class="blue accent-1 pa-2 black--text">
+      <v-card class="ma-1" elevation="2">
+        <div class="light-blue darken-2 pa-2 white--text">
           <v-layout row wrap align-center>
             <v-flex xs7>
-              {{nutrient_group}}
+              <b>{{nutrient_group}}</b>
             </v-flex>
             <v-flex xs3>
               Amount
@@ -26,7 +26,13 @@
           :key="nutrient_info['id']"
         >
           <v-divider></v-divider>
-          <v-layout row wrap align-center class="pa-1">
+          <v-layout
+            row
+            wrap
+            align-center
+            class="pa-1"
+            :class="{dark: false}"
+          >
             <v-flex xs7 class="pr-1">
               {{
                 nutrient_info['name']

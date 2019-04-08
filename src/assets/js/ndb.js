@@ -98,8 +98,19 @@ class Food {
             this[prop] = food_json[prop]
         }
 
+        // If nutrients have not been loaded, don't load
+        // them, but set up the nutrients object
         if (!this.nutrients_loaded) {
             this.nutrients = {}
+        }
+
+        // Add variables to let user set min and max
+        // amounts they are willing to eat
+        if (!this.servings_range) {
+            this.min_servings = 0
+            this.max_servings = 0
+            this.servings_range = [0.0, 0.0]
+            this.has_max_servings = false
         }
     }
 
@@ -118,8 +129,8 @@ class Food {
                     }
 
                     // All NDB nutrient values are per 100g of the food
-                    this.amount = 100
-                    this.unit = 'g'
+                    this.serving_amount = 100
+                    this.serving_unit = 'g'
 
                     if (callback) {
                         callback(this.nutrients)
