@@ -33,16 +33,23 @@
 
       <v-tabs>
         <v-tab ripple>
-          Food
+          Your Menu
         </v-tab>
         <v-tab ripple>
-          Nutrition
+          Your Nutrition
+        </v-tab>
+        <v-tab ripple>
+          Optimize!
         </v-tab>
         <v-tab-item>
           <FoodSelect @foodsSelected="foodsSelected" />
         </v-tab-item>
         <v-tab-item>
           <NutritionSelect @nutrientsSelected="nutrientsSelected" />
+        </v-tab-item>
+        <v-tab-item>
+          <DietOptimizer>
+          </DietOptimizer>
         </v-tab-item>
       </v-tabs>
 
@@ -53,12 +60,14 @@
 <script>
 import FoodSelect from './components/FoodSelect'
 import NutritionSelect from './components/NutritionSelect'
+import DietOptimizer from './components/DietOptimizer'
 
 export default {
   name: 'App',
   components: {
     FoodSelect,
-    NutritionSelect
+    NutritionSelect,
+    DietOptimizer
   },
 
   watch: {
@@ -86,13 +95,13 @@ export default {
 
   methods: {
     foodsSelected: function(selectedFoods) {
-      console.log('foods emitted')
+      // console.log('foods emitted')
       this.selectedFoods = selectedFoods
       // console.log(JSON.parse(JSON.stringify(this.selectedFoods, null, true)))
     },
 
     nutrientsSelected: function(selectedNutrients) {
-      console.log('nutrients emitted')
+      // console.log('nutrients emitted')
       this.selectedNutrients = selectedNutrients
       // console.log(JSON.parse(JSON.stringify(this.selectedNutrients, null, true)))
     }

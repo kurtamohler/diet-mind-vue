@@ -1,16 +1,19 @@
 <template>
   <v-container>
+    <!--
     <v-card>
       <v-card-title class="headline font-weight-regular">
         Your Nutrients
       </v-card-title>
     </v-card>
+    -->
+
     <v-layout column>
       <v-flex xs12 sm6 lg4
         v-for="(nutrients_info, nutrient_group) in nutrientGroups"
         :key="nutrient_group"
       >
-        <v-card class="mt-2" elevation="2">
+        <v-card class="mb-2" elevation="2">
           <div class="light-blue darken-2 pa-2 white--text">
             <v-layout row wrap align-center>
               <v-flex xs4>
@@ -80,7 +83,7 @@
               <v-flex xs2 class="px-2">
                 <v-switch
                   v-model="nutrientReqs[nutrient_info['id']].has_max_value"
-                  style="transform: scale(0.5); transform-origin: left"
+                  style="transform: scale(0.8); transform-origin: left"
                 ></v-switch>
               </v-flex>
             </v-layout>

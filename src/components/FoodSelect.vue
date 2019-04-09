@@ -3,7 +3,7 @@
 
     <!-- Selected foods list -->
     <v-card>
-      <v-card-title class="headline font-weight-regular">Your Menu</v-card-title>
+      <!-- <v-card-title class="headline font-weight-regular">Your Menu</v-card-title> -->
       <v-layout row wrap>
         <v-flex xs12
           v-for="(food, ind) in selectedFoods"
