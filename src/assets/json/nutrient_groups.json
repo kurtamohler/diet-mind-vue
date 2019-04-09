@@ -9,10 +9,6 @@
       "name": "Fiber, total dietary"
     },
     {
-      "id": "209",
-      "name": "Starch"
-    },
-    {
       "id": "269",
       "name": "Sugars, total"
     }
@@ -38,14 +34,6 @@
     {
       "id": "605",
       "name": "Fatty acids, total trans"
-    },
-    {
-      "id": "693",
-      "name": "Fatty acids, total trans-monoenoic"
-    },
-    {
-      "id": "695",
-      "name": "Fatty acids, total trans-polyenoic"
     }
   ],
 

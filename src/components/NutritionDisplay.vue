@@ -41,7 +41,7 @@
             <v-flex xs3>
               {{
                 nutrients[nutrient_info['id']] ?
-                nutrients[nutrient_info['id']].value : '0'
+                nutrients[nutrient_info['id']].value : '-'
               }}
               {{
                 nutrients[nutrient_info['id']] ?
@@ -66,29 +66,12 @@ var nutrientGroups = require('../assets/json/nutrient_groups.json')
 
 export default {
   props: ['nutrients'],
-  components: {
-  },
 
   data: function () {
     return {
       nutrientGroups: nutrientGroups
     }
-  },
-
-  watch: {
-  },
-
-  mounted() {
-  },
-
-  created: function() {
-    // this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
-  },
-
-  methods: {
-
   }
-
 }
 </script>
 

@@ -1,4 +1,8 @@
 {
+  "id": "209",
+  "name": "Starch"
+},
+{
   "id": "509",
   "name": "Tyrosine"
 },
@@ -569,4 +573,12 @@
 {
   "id": "573",
   "name": "Vitamin E, added"
+},
+{
+  "id": "693",
+  "name": "Fatty acids, total trans-monoenoic"
+},
+{
+  "id": "695",
+  "name": "Fatty acids, total trans-polyenoic"
 }

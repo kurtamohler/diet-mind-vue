@@ -14,7 +14,8 @@
           @click="toggleDetails">
           <v-icon small>
             {{
-              collapsed ? collapsedTrueIcon : collapsedFalseIcon
+              collapsed ?
+              collapsedTrueIcon : collapsedFalseIcon
             }}
           </v-icon>
         </v-btn>
