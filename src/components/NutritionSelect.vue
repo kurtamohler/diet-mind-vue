@@ -39,7 +39,9 @@
               <v-flex xs4 class="px-2" style="word-wrap: break-word">
                 {{
                   nutrient_info['name']
-                }}, {{nutrientReqs[nutrient_info['id']].unit}}
+                }}, {{
+                  nutrientReqs[nutrient_info['id']].unit
+                }}
               </v-flex>
 
               <v-flex xs4 class="pl-2 pr-3">
@@ -92,7 +94,7 @@
 
 
 <script>
-// import Vue from 'vue'
+import Vue from 'vue'
 
 var nutrientGroups = require('../assets/json/nutrient_groups.json')
 
@@ -106,8 +108,18 @@ export default {
     }
   },
 
+  watch: {
+    nutrientReqs: {
+      handler() {
+        this.debouncedEmitNutrients()
+      },
+      deep: true
+    }
+  },
+
   created: function() {
-    // this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
+    this.debouncedEmitNutrients = Vue.lodash.debounce(this.emitNutrients, 500)
+
     this.nutrientReqs = defaultNutrientReqs
 
     /*
@@ -137,6 +149,12 @@ export default {
       }
     }
     */
+  },
+
+  methods: {
+    emitNutrients: function() {
+      this.$emit('nutrientsSelected', this.nutrientReqs)
+    }
   }
 }
 </script>

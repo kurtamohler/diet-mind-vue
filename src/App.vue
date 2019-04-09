@@ -42,7 +42,7 @@
           <FoodSelect @foodsSelected="foodsSelected" />
         </v-tab-item>
         <v-tab-item>
-          <NutritionSelect />
+          <NutritionSelect @nutrientsSelected="nutrientsSelected" />
         </v-tab-item>
       </v-tabs>
 
@@ -79,14 +79,22 @@ export default {
     return {
       darkTheme: true,
       settingsOpen: false,
-      selectedFoods: []
+      selectedFoods: [],
+      selectedNutrients: []
     }
   },
 
   methods: {
     foodsSelected: function(selectedFoods) {
-      // console.log(JSON.parse(JSON.stringify(selectedFoods)))
+      console.log('foods emitted')
       this.selectedFoods = selectedFoods
+      // console.log(JSON.parse(JSON.stringify(this.selectedFoods, null, true)))
+    },
+
+    nutrientsSelected: function(selectedNutrients) {
+      console.log('nutrients emitted')
+      this.selectedNutrients = selectedNutrients
+      // console.log(JSON.parse(JSON.stringify(this.selectedNutrients, null, true)))
     }
   }
 }

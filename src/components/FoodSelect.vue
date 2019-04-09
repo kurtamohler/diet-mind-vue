@@ -92,9 +92,16 @@ export default {
     selectedFoods: {
       handler() {
         localStorage.setItem('selectedFoods', JSON.stringify(this.selectedFoods))
+        this.debouncedEmitSelectedFoods()
       },
       deep: true
     }
+  },
+
+  created() {
+    this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
+
+    this.debouncedEmitSelectedFoods = Vue.lodash.debounce(this.emitSelectedFoods, 500)
   },
 
   mounted() {
@@ -104,20 +111,14 @@ export default {
       for (var ind = 0; ind < selectedFoodsJSON.length; ind++) {
         this.selectedFoods.push(new ndb.Food(selectedFoodsJSON[ind]))
       }
-
-      this.$emit('foodsSelected', this.selectedFoods)
     }
   },
 
-  created: function() {
-    this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
-
-    // ndb.load_all_nutrients(function (nutrients) {
-    //   console.log(JSON.stringify(nutrients, null, 2))
-    // })
-  },
-
   methods: {
+
+    emitSelectedFoods: function() {
+      this.$emit('foodsSelected', this.selectedFoods)
+    },
 
     updateSearchResults: function(foods) {
       // if (foods.length == 0) {
@@ -150,13 +151,11 @@ export default {
       // Load the food's nutrients before adding it to selected foods array
       food.load_nutrients(() => {
         this.selectedFoods.push(food)
-        this.$emit('foodsSelected', this.selectedFoods)
       })
     },
 
     unselectFood: function(ind) {
       this.selectedFoods.splice(ind, 1)
-      this.$emit('foodsSelected', this.selectedFoods)
     }
   }
 
