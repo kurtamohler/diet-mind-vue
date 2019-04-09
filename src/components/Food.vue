@@ -11,7 +11,9 @@
           v-if="!loadingDetails"
           small
           icon
-          @click="toggleDetails">
+          @click="toggleDetails"
+          class="text-xs-right"
+        >
           <v-icon small>
             {{
               collapsed ?
@@ -41,7 +43,7 @@
     <div
       v-if="showMinMaxSettings"
     >
-      <v-layout row>
+      <v-layout row align-center>
         <v-flex
           xs4
           sm2
@@ -62,6 +64,7 @@
           <v-text-field
             v-model="food.servings_range[1]"
             :disabled="!food.has_max_servings"
+            :hidden="!food.has_max_servings"
             type="number"
             label="max servings"
           >
@@ -87,6 +90,7 @@
     >
       <h3 class="pb-1 pt-2">Nutrition</h3>
       <NutritionDisplay
+        class="pb-2"
         v-if="food.nutrients_loaded"
         :nutrients="food.nutrients" />
     </div>
@@ -132,7 +136,7 @@
 
         if (this.collapsed) {
           this.loadingDetails = true
-          
+
           // Load nutrients in case they haven't been yet
           this.food.load_nutrients(() => {
             this.loadingDetails = false

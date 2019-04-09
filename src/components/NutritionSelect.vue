@@ -5,61 +5,88 @@
         Your Nutrients
       </v-card-title>
     </v-card>
-      <v-layout column>
-        <v-flex xs12 sm6 lg4 v-for="(nutrients_info, nutrient_group) in nutrientGroups"
-          :key="nutrient_group"
-        >
-          <v-card class="mt-2" elevation="2">
-            <div class="light-blue darken-2 pa-2 white--text">
-              <v-layout row wrap align-center>
-                <v-flex xs4>
-                  <b>{{nutrient_group}}</b>
-                </v-flex>
-                <v-flex xs3>
-                  Min
-                </v-flex>
-                <v-flex xs3>
-                  Max
-                </v-flex>
-              </v-layout>
-            </div>
-            <div
-              v-for="(nutrient_info) in nutrients_info"
-              :key="nutrient_info['id']"
+    <v-layout column>
+      <v-flex xs12 sm6 lg4
+        v-for="(nutrients_info, nutrient_group) in nutrientGroups"
+        :key="nutrient_group"
+      >
+        <v-card class="mt-2" elevation="2">
+          <div class="light-blue darken-2 pa-2 white--text">
+            <v-layout row wrap align-center>
+              <v-flex xs4>
+                <b>{{nutrient_group}}</b>
+              </v-flex>
+              <v-flex xs4>
+                Min
+              </v-flex>
+              <v-flex xs4>
+                Max
+              </v-flex>
+            </v-layout>
+          </div>
+          <div
+            v-for="(nutrient_info) in nutrients_info"
+            :key="nutrient_info['id']"
+          >
+            <v-divider></v-divider>
+            <v-layout
+              row
+              wrap
+              align-center
+              class="pa-1"
+              :class="{dark: false}"
             >
-              <v-divider></v-divider>
-              <v-layout
-                row
-                wrap
-                align-center
-                class="pa-1"
-                :class="{dark: false}"
-              >
-                <v-flex xs4 class="pr-1">
-                  {{
-                    nutrient_info['name']
-                  }}, {{nutrientReqs[nutrient_info['id']].unit}}
-                </v-flex>
+              <v-flex xs4 class="px-2" style="word-wrap: break-word">
+                {{
+                  nutrient_info['name']
+                }}, {{nutrientReqs[nutrient_info['id']].unit}}
+              </v-flex>
 
-                <v-flex xs3>
-                  <v-text-field
-                    v-model="nutrientReqs[nutrient_info['id']].min_value"
-                    type="number"
-                  ></v-text-field>
-                </v-flex>
+              <v-flex xs4 class="pl-2 pr-3">
+                <v-text-field
+                  v-model="nutrientReqs[nutrient_info['id']].min_value"
+                  type="number"
+                  class="noIncButtons"
+                >
+                  <template v-slot:append>
+                    <v-btn
+                      icon
+                      small
+                      @click="nutrientReqs[nutrient_info['id']].min_value = 0"
+                      class="pa-0 ma-0"
+                    >
+                      <v-icon
+                        small
+                      >mdi-close</v-icon>
+                    </v-btn>
 
-                <v-flex xs3>
-                  <v-text-field
-                    v-model="nutrientReqs[nutrient_info['id']].max_value"
-                    type="number"
-                  ></v-text-field>
-                </v-flex>
-              </v-layout>
-            </div>
-          </v-card>
+                  </template>
+                  
+                </v-text-field>
+              </v-flex>
 
-        </v-flex>
-      </v-layout>
+
+              <v-flex xs2>
+                <v-text-field
+                  v-model="nutrientReqs[nutrient_info['id']].max_value"
+                  type="number"
+                  :hidden="!nutrientReqs[nutrient_info['id']].has_max_value"
+                  :disabled="!nutrientReqs[nutrient_info['id']].has_max_value"
+                  class="noIncButtons"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs2 class="px-2">
+                <v-switch
+                  v-model="nutrientReqs[nutrient_info['id']].has_max_value"
+                  style="transform: scale(0.5); transform-origin: left"
+                ></v-switch>
+              </v-flex>
+            </v-layout>
+          </div>
+        </v-card>
+
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -68,13 +95,10 @@
 // import Vue from 'vue'
 
 var nutrientGroups = require('../assets/json/nutrient_groups.json')
+
 var defaultNutrientReqs = require('../assets/json/nutrient_requirements_dv.json')
 
-
 export default {
-  components: {
-  },
-
   data: function () {
     return {
       nutrientReqs: {},
@@ -82,13 +106,11 @@ export default {
     }
   },
 
-  mounted() {
-  },
-
   created: function() {
     // this.debouncedSearchFoods = Vue.lodash.debounce(this.searchFoods, 500)
     this.nutrientReqs = defaultNutrientReqs
 
+    /*
     for (var group_name in this.nutrientGroups) {
       var group = this.nutrientGroups[group_name]
       // console.log(group)
@@ -114,15 +136,18 @@ export default {
         }
       }
     }
-  },
-
-  methods: {
-
+    */
   }
-
 }
 </script>
 
 <style>
+.noIncButtons input[type='number'] {
+    -moz-appearance:textfield;
+}
+.noIncButtons input::-webkit-outer-spin-button,
+.noIncButtons input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 
 </style>

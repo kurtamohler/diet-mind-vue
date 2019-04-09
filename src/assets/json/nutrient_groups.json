@@ -1,4 +1,10 @@
 {
+  "Calories": [
+    {
+      "id": "208",
+      "name": "Energy"
+    }
+  ],
   "Carbohydrates": [
     {
       "id": "205",
