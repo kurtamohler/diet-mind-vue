@@ -5,7 +5,6 @@
   <v-layout column>
     <v-flex xs12 sm6 lg4 v-for="(nutrients_info, nutrient_group) in nutrientGroups"
       :key="nutrient_group"
-      class="pr-3"
     >
       <v-card class="ma-1" elevation="2">
         <div class="light-blue darken-2 pa-2 white--text">

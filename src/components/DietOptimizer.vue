@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-card hidden>
+    <v-card hidden class="mb-2">
       <v-card-title class="headline font-weight-regular">
         Objectives
       </v-card-title>
@@ -35,7 +35,7 @@
 
     <v-btn
       block
-      class="mt-2 light-blue darken-2 white--text"
+      class="light-blue darken-2 white--text"
       @click="optimizeDiet"
     >
       Optimize!
@@ -43,7 +43,7 @@
 
     <v-card
       :hidden="!optimizeResultReady"
-      style="word-wrap: break-word"
+      class="mt-2"
     >
       <v-layout row wrap>
         <v-flex xs3 class="pa-2">
@@ -77,17 +77,31 @@
       Not feasible. Try adding more variety to your menu or slackening your nutrition constraints.
     </v-card>
 
+    <v-card
+      v-if="!optimizeResultNotFeasible && optimizeResultReady"
+      class="mt-2 pa-2"
+    >
+      <v-card-title class="headline font-weight-regular">
+        Total Nutrients
+      </v-card-title>
+      <NutritionDisplay
+        :nutrients="optimizedNutrients"
+      ></NutritionDisplay>
+    </v-card>
+
 
   </v-container>
 </template>
 
 <script>
 import Food from './Food'
+import NutritionDisplay from './NutritionDisplay'
 import * as diet_optimizer from '../assets/js/diet_optimizer.js'
 
 export default {
   components: {
-    Food
+    Food,
+    NutritionDisplay
   },
 
   props: {
@@ -117,7 +131,8 @@ export default {
       optimizeResult: '',
       optimizeResultReady: false,
       optimizedFoods: [],
-      optimizeResultNotFeasible: false
+      optimizeResultNotFeasible: false,
+      optimizedNutrients: {}
     }
   },
 
@@ -153,6 +168,7 @@ export default {
       // console.log(this.optimizeResult)
 
       this.optimizedFoods = []
+      this.optimizedNutrients = {}
 
 
       if (this.optimizeResult.feasible) {
@@ -166,13 +182,42 @@ export default {
           }
 
           if (this.optimizeResult[foodInd]) {
+            var servings = this.optimizeResult[foodInd]
             this.optimizedFoods[foodInd]['amount'] = 
-              (this.optimizeResult[foodInd] * food.serving_amount).toFixed(2)
+              (servings * food.serving_amount).toFixed(2)
+
+            // Calculate the totals for all nutrients
+            for (let nutrientID in food.nutrients) {
+              let nutrient = food.nutrients[nutrientID]
+
+              // console.log(nutrient)
+
+              if (!this.optimizedNutrients.hasOwnProperty(nutrientID)) {
+                this.optimizedNutrients[nutrientID] = {
+                  'name': nutrient.name,
+                  'unit': nutrient.unit,
+                  'value': 0
+                }
+              }
+
+              this.optimizedNutrients[nutrientID].value +=
+                nutrient.value * servings
+            }
 
           } else {
             this.optimizedFoods[foodInd]['amount'] = 0
           }
+
         }
+
+        // Trim extra decimals from nutrient amounts
+        for (let nutrientID in this.optimizedNutrients) {
+          let nutrient = this.optimizedNutrients[nutrientID]
+
+          nutrient.value = nutrient.value.toFixed(2)
+        }
+
+        // console.log(JSON.parse(JSON.stringify(this.optimizedNutrients, null, false)))
 
 
         this.optimizeResultReady = true
