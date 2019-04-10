@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-    <v-card>
+    <v-card hidden>
       <v-card-title class="headline font-weight-regular">
         Objectives
       </v-card-title>
@@ -41,17 +41,55 @@
       Optimize!
     </v-btn>
 
-    <v-card style="word-wrap: break-word">
-      {{optimizeResult}}
+    <v-card
+      :hidden="!optimizeResultReady"
+      style="word-wrap: break-word"
+    >
+      <v-layout row wrap>
+        <v-flex xs3 class="pa-2">
+          <h3>Amount</h3>
+        </v-flex>
+        <v-flex xs9 class="pa-2">
+          <h3>Food</h3>
+        </v-flex>
+
+        </v-flex>
+        <v-flex xs12
+          v-for="food in optimizedFoods"
+        >
+          <v-divider></v-divider>
+          <v-layout row align-center>
+            <v-flex xs3 class="px-2">
+              {{food.amount}} {{food.unit}}
+            </v-flex>
+            <v-flex xs9 class="px-2">
+              <Food :food="food.info"></Food>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
     </v-card>
+
+    <v-card
+      :hidden="!optimizeResultNotFeasible"
+      class="mt-2 pa-2"
+    >
+      Not feasible. Try adding more variety to your menu or slackening your nutrition constraints.
+    </v-card>
+
 
   </v-container>
 </template>
 
 <script>
+import Food from './Food'
 import * as diet_optimizer from '../assets/js/diet_optimizer.js'
 
 export default {
+  components: {
+    Food
+  },
+
   props: {
     foods: {
       type: Array,
@@ -76,7 +114,10 @@ export default {
       ],
       selectedObjective: 'food weight',
       minimizeObjective: true,
-      optimizeResult: ''
+      optimizeResult: '',
+      optimizeResultReady: false,
+      optimizedFoods: [],
+      optimizeResultNotFeasible: false
     }
   },
 
@@ -84,12 +125,16 @@ export default {
     foods: {
       handler() {
         // console.log(JSON.parse(JSON.stringify(this.foods, null, false)))
+        this.optimizeResultNotFeasible = false
+        this.optimizeResultReady = false
       },
       deep: true
     },
     nutrients: {
       handler() {
         // console.log(this.nutrients)
+        this.optimizeResultNotFeasible = false
+        this.optimizeResultReady = false
       },
       deep: true
     }
@@ -97,10 +142,45 @@ export default {
 
   methods: {
     optimizeDiet: function() {
-      this.optimizeResult = JSON.stringify(diet_optimizer.optimize_diet(
+      this.optimizeResultReady = false
+      this.optimizeResultNotFeasible = false
+
+      this.optimizeResult = diet_optimizer.optimize_diet(
         this.foods,
         this.nutrients
-      ))
+      )
+
+      console.log(this.optimizeResult)
+
+      this.optimizedFoods = []
+
+
+      if (this.optimizeResult.feasible) {
+        for (var foodInd in this.foods) {
+          var food = this.foods[foodInd]
+
+          this.optimizedFoods[foodInd] = {
+            'unit': food.serving_unit,
+            'name': food.name,
+            'info': food
+          }
+
+          if (this.optimizeResult[foodInd]) {
+            this.optimizedFoods[foodInd]['amount'] = 
+              (this.optimizeResult[foodInd] * food.serving_amount).toFixed(2)
+
+          } else {
+            this.optimizedFoods[foodInd]['amount'] = 0
+          }
+        }
+
+
+        this.optimizeResultReady = true
+
+      } else {
+        this.optimizeResultNotFeasible = true
+      }
+
     }
   }
 }
