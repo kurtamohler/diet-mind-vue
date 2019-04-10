@@ -53,9 +53,9 @@
           <h3>Food</h3>
         </v-flex>
 
-        </v-flex>
         <v-flex xs12
-          v-for="food in optimizedFoods"
+          v-for="(food, ind) in optimizedFoods"
+          :key="ind"
         >
           <v-divider></v-divider>
           <v-layout row align-center>
@@ -150,7 +150,7 @@ export default {
         this.nutrients
       )
 
-      console.log(this.optimizeResult)
+      // console.log(this.optimizeResult)
 
       this.optimizedFoods = []
 
