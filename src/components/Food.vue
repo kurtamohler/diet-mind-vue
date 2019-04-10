@@ -53,6 +53,7 @@
             v-model="food.servings_range[0]"
             type="number"
             label="min servings"
+            class="noIncButtons"
           >
           </v-text-field>
         </v-flex>
@@ -67,6 +68,7 @@
             :hidden="!food.has_max_servings"
             type="number"
             label="max servings"
+            class="noIncButtons"
           >
           </v-text-field>
         </v-flex>
@@ -151,4 +153,14 @@
     }
   }
 </script>
+
+<style>
+.noIncButtons input[type='number'] {
+    -moz-appearance:textfield;
+}
+.noIncButtons input::-webkit-outer-spin-button,
+.noIncButtons input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+</style>
 

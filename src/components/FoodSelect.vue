@@ -2,7 +2,7 @@
   <v-container>
 
     <!-- Selected foods list -->
-    <v-card>
+    <v-card class="mb-2">
       <!-- <v-card-title class="headline font-weight-regular">Your Menu</v-card-title> -->
       <v-layout row wrap>
         <v-flex xs12
@@ -28,7 +28,7 @@
     </v-card>
 
     <!-- Food search bar -->
-    <v-card class="my-2">
+    <v-card>
       <v-layout row wrap>
         <v-flex xs12>
           <v-text-field

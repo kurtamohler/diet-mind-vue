@@ -39,17 +39,23 @@
           Your Nutrition
         </v-tab>
         <v-tab ripple>
-          Optimize!
+          Your Diet
         </v-tab>
         <v-tab-item>
-          <FoodSelect @foodsSelected="foodsSelected" />
+          <FoodSelect
+            @foodsSelected="foodsSelected"
+          />
         </v-tab-item>
         <v-tab-item>
-          <NutritionSelect @nutrientsSelected="nutrientsSelected" />
+          <NutritionSelect
+            @nutrientsSelected="nutrientsSelected"
+          />
         </v-tab-item>
         <v-tab-item>
-          <DietOptimizer>
-          </DietOptimizer>
+          <DietOptimizer
+            v-bind:foods="foods"
+            v-bind:nutrients="nutrients"
+          />
         </v-tab-item>
       </v-tabs>
 
@@ -88,22 +94,22 @@ export default {
     return {
       darkTheme: true,
       settingsOpen: false,
-      selectedFoods: [],
-      selectedNutrients: []
+      foods: [],
+      nutrients: {}
     }
   },
 
   methods: {
-    foodsSelected: function(selectedFoods) {
+    foodsSelected: function(foods) {
       // console.log('foods emitted')
-      this.selectedFoods = selectedFoods
-      // console.log(JSON.parse(JSON.stringify(this.selectedFoods, null, true)))
+      this.foods = foods
+      // console.log(JSON.parse(JSON.stringify(this.foods, null, true)))
     },
 
-    nutrientsSelected: function(selectedNutrients) {
+    nutrientsSelected: function(nutrients) {
       // console.log('nutrients emitted')
-      this.selectedNutrients = selectedNutrients
-      // console.log(JSON.parse(JSON.stringify(this.selectedNutrients, null, true)))
+      this.nutrients = nutrients
+      // console.log(JSON.parse(JSON.stringify(this.nutrients, null, true)))
     }
   }
 }
