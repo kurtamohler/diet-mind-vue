@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "javascript-lp-solver": "^0.4.5",
     "vue": "^2.6.6",
     "vue-lodash": "^2.0.2",
     "vue-scrollto": "^2.15.0",

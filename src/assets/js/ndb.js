@@ -107,9 +107,7 @@ class Food {
         // Add variables to let user set min and max
         // amounts they are willing to eat
         if (!this.servings_range) {
-            this.min_servings = 0
-            this.max_servings = 0
-            this.servings_range = [0.0, 0.0]
+            this.servings_range = [0, 0]
             this.has_max_servings = false
         }
     }

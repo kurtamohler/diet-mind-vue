@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import * as diet_optimizer from '../assets/js/diet_optimizer.js'
+
 export default {
   props: {
     foods: {
@@ -90,6 +92,10 @@ export default {
 
   methods: {
     optimizeDiet: function() {
+      diet_optimizer.optimize_diet(
+        this.foods,
+        this.nutrients
+      )
     }
   }
 }
