@@ -75,7 +75,6 @@
                 <v-text-field
                   v-model="nutrientReqs[nutrient_info['id']].max_value"
                   type="number"
-                  :hidden="!nutrientReqs[nutrient_info['id']].has_max_value"
                   :disabled="!nutrientReqs[nutrient_info['id']].has_max_value"
                   class="noIncButtons"
                 ></v-text-field>

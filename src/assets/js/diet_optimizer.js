@@ -11,8 +11,8 @@ function optimize_diet(foods, nutrients) {
         var food = foods[foodInd]
         var food_vars = {}
 
-        for (var nutrient_id in food.nutrients) {
-            var nutrient = food.nutrients[nutrient_id]
+        for (let nutrient_id in food.nutrients) {
+            let nutrient = food.nutrients[nutrient_id]
 
             food_vars['nut'+nutrient_id] = nutrient.value
         }
@@ -34,8 +34,8 @@ function optimize_diet(foods, nutrients) {
         solver_constraints[foodInd] = food_constraint
     }
 
-    for (var nutrient_id in nutrients) {
-        var nutrient = nutrients[nutrient_id]
+    for (let nutrient_id in nutrients) {
+        let nutrient = nutrients[nutrient_id]
 
         var nutrient_constraint = {}
 
@@ -56,5 +56,7 @@ function optimize_diet(foods, nutrients) {
         'variables': solver_vars,
     }
 
-    console.log(solver.Solve(model))
+    var result = solver.Solve(model)
+
+    return result
 }

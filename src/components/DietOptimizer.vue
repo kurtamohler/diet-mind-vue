@@ -41,6 +41,10 @@
       Optimize!
     </v-btn>
 
+    <v-card style="word-wrap: break-word">
+      {{optimizeResult}}
+    </v-card>
+
   </v-container>
 </template>
 
@@ -71,7 +75,8 @@ export default {
         'calories'
       ],
       selectedObjective: 'food weight',
-      minimizeObjective: true
+      minimizeObjective: true,
+      optimizeResult: ''
     }
   },
 
@@ -92,10 +97,10 @@ export default {
 
   methods: {
     optimizeDiet: function() {
-      diet_optimizer.optimize_diet(
+      this.optimizeResult = JSON.stringify(diet_optimizer.optimize_diet(
         this.foods,
         this.nutrients
-      )
+      ))
     }
   }
 }
