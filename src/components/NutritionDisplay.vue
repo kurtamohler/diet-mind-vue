@@ -61,7 +61,7 @@
 
 <script>
 // import Vue from 'vue'
-var nutrientGroups = require('../assets/json/nutrient_groups.json')
+let nutrientGroups = require('../assets/json/nutrient_groups.json')
 
 export default {
   props: ['nutrients'],

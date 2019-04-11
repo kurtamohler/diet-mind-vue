@@ -98,9 +98,9 @@
 <script>
 import Vue from 'vue'
 
-var nutrientGroups = require('../assets/json/nutrient_groups.json')
+let nutrientGroups = require('../assets/json/nutrient_groups.json')
 
-var defaultNutrientReqs = require('../assets/json/nutrient_requirements_dv.json')
+let defaultNutrientReqs = require('../assets/json/nutrient_requirements_dv.json')
 
 export default {
   data: function () {
@@ -125,13 +125,13 @@ export default {
     this.nutrientReqs = defaultNutrientReqs
 
     /*
-    for (var group_name in this.nutrientGroups) {
-      var group = this.nutrientGroups[group_name]
+    for (let group_name in this.nutrientGroups) {
+      let group = this.nutrientGroups[group_name]
       // console.log(group)
 
-      for (var ind in group) {
-        var id = group[ind].id
-        var name = group[ind].name
+      for (let ind in group) {
+        let id = group[ind].id
+        let name = group[ind].name
         if (!this.nutrientReqs.hasOwnProperty(id)) {
 
           // TODO: something is wrong if this happens

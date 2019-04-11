@@ -172,8 +172,8 @@ export default {
 
 
       if (this.optimizeResult.feasible) {
-        for (var foodInd in this.foods) {
-          var food = this.foods[foodInd]
+        for (let foodInd in this.foods) {
+          let food = this.foods[foodInd]
 
           this.optimizedFoods[foodInd] = {
             'unit': food.serving_unit,
@@ -182,7 +182,7 @@ export default {
           }
 
           if (this.optimizeResult[foodInd]) {
-            var servings = this.optimizeResult[foodInd]
+            let servings = this.optimizeResult[foodInd]
             this.optimizedFoods[foodInd]['amount'] = 
               (servings * food.serving_amount).toFixed(2)
 

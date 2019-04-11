@@ -6,7 +6,7 @@ import App from './App.vue'
 import VueLodash from 'vue-lodash'
 import '@mdi/font/css/materialdesignicons.css'
 // import VueScrollTo from 'vue-scrollto'
-var VueScrollTo = require('vue-scrollto')
+let VueScrollTo = require('vue-scrollto')
 
 
 Vue.config.productionTip = false

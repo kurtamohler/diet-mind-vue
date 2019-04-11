@@ -3,13 +3,13 @@ export {optimize_diet}
 const solver = require('javascript-lp-solver')
 
 function optimize_diet(foods, nutrients) {
-    var solver_vars = {}
-    var solver_ints = {}
-    var solver_constraints = {}
+    let solver_vars = {}
+    let solver_ints = {}
+    let solver_constraints = {}
 
-    for (var foodInd in foods) {
-        var food = foods[foodInd]
-        var food_vars = {}
+    for (let foodInd in foods) {
+        let food = foods[foodInd]
+        let food_vars = {}
 
         for (let nutrient_id in food.nutrients) {
             let nutrient = food.nutrients[nutrient_id]
@@ -23,7 +23,7 @@ function optimize_diet(foods, nutrients) {
 
         solver_ints[foodInd] = 1
 
-        var food_constraint = {}
+        let food_constraint = {}
 
         food_constraint['min'] = food.servings_range[0]
 
@@ -37,7 +37,7 @@ function optimize_diet(foods, nutrients) {
     for (let nutrient_id in nutrients) {
         let nutrient = nutrients[nutrient_id]
 
-        var nutrient_constraint = {}
+        let nutrient_constraint = {}
 
         nutrient_constraint['min'] = nutrient.min_value
 
@@ -49,14 +49,14 @@ function optimize_diet(foods, nutrients) {
     }
 
 
-    var model = {
+    let model = {
         'optimize': 'weight',
         'opType': 'min',
         'constraints': solver_constraints,
         'variables': solver_vars,
     }
 
-    var result = solver.Solve(model)
+    let result = solver.Solve(model)
 
     return result
 }
