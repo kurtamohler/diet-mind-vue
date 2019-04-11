@@ -23,11 +23,11 @@ function optimize_diet(foods, nutrients) {
 
         solver_ints[foodInd] = 1
 
-        let food_constraint = {}
+        let food_constraint = {
+            'min': food.servings_range[0]
+        }
 
-        food_constraint['min'] = food.servings_range[0]
-
-        if (food.has_max_value) {
+        if (food.has_max_servings) {
             food_constraint['max'] = food.servings_range[1]
         }
 
