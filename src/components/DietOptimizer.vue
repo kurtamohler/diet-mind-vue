@@ -79,11 +79,12 @@
 
     <v-card
       v-if="!optimizeResultNotFeasible && optimizeResultReady"
-      class="mt-2 pa-2"
+      class="mt-2"
     >
       <v-card-title class="headline font-weight-regular">
         Total Nutrients
       </v-card-title>
+      <v-divider />
       <NutritionDisplay
         :nutrients="optimizedNutrients"
       ></NutritionDisplay>

@@ -14,7 +14,11 @@
           @click="toggleDetails"
           class="text-xs-right"
         >
-          <v-icon small>
+          <v-icon
+            class="darken-2"
+            color="blue"
+            small
+          >
             {{
               collapsed ?
               collapsedTrueIcon : collapsedFalseIcon
@@ -74,7 +78,6 @@
         </v-flex>
         <v-flex
           xs4
-
           class="px-2"
         >
           <v-switch

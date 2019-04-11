@@ -4,27 +4,85 @@
     <!-- Selected foods list -->
     <v-card class="mb-2">
       <!-- <v-card-title class="headline font-weight-regular">Your Menu</v-card-title> -->
-      <v-layout row wrap>
-        <v-flex xs12
-          v-for="(food, ind) in selectedFoods"
-          :key="ind"
-        >
-          <v-divider></v-divider>
-          <v-layout row wrap>
-            <v-flex xs2 sm1>
-              <v-btn icon small @click="unselectFood(ind)" :data="food">
-                <v-icon color="blue">mdi-close</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex xs10 sm11>
-              <Food
-                :food="food"
-                showMinMaxSettings
-              ></Food>
-            </v-flex>
-          </v-layout>
+      <v-layout row align-center>
+
+        <v-flex xs4 sm2 lg1>
+          <v-btn
+            icon
+            small
+            @click="menuCollapsed = !menuCollapsed"
+          >
+            <v-icon
+              class="darken-2"
+              color="blue"
+            >
+              {{menuCollapsed ? "mdi-dots-horizontal": "mdi-dots-vertical"}}
+            </v-icon>
+          </v-btn>
         </v-flex>
+
+        <v-flex xs4 sm8 lg10 class="pa-0">
+          <v-btn
+            flat
+            block
+            @click="menuCollapsed = !menuCollapsed"
+          >My Favorite Foods</v-btn>
+        </v-flex>
+
+        <v-flex xs4 sm2 lg1>
+          <v-btn
+            icon
+            small
+            hidden
+          >
+            <v-icon
+              class="darken-2"
+              color="blue"
+              small
+            >mdi-content-save-edit</v-icon>
+          </v-btn>
+
+          <v-btn
+            icon
+            small
+            hidden
+          >
+            <v-icon
+              class="darken-2"
+              color="blue"
+              small
+            >mdi-book-open</v-icon>
+          </v-btn>
+        </v-flex>
+
       </v-layout>
+
+      <div
+          :hidden="menuCollapsed"
+      >
+        <v-layout row wrap
+        >
+          <v-flex xs12
+            v-for="(food, ind) in selectedFoods"
+            :key="ind"
+          >
+            <v-divider></v-divider>
+            <v-layout row wrap>
+              <v-flex xs2 sm1>
+                <v-btn icon small @click="unselectFood(ind)" :data="food">
+                  <v-icon color="blue">mdi-close</v-icon>
+                </v-btn>
+              </v-flex>
+              <v-flex xs10 sm11>
+                <Food
+                  :food="food"
+                  showMinMaxSettings
+                ></Food>
+              </v-flex>
+            </v-layout>
+          </v-flex>
+        </v-layout>
+      </div>
     </v-card>
 
     <!-- Food search bar -->
@@ -84,7 +142,8 @@ export default {
       foodSearchTerm: '',
       foodSearchResults: [],
       selectedFoods: [],
-      searchIsLoading: false
+      searchIsLoading: false,
+      menuCollapsed: false
     }
   },
 
