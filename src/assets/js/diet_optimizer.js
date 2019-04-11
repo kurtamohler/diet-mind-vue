@@ -14,7 +14,7 @@ function optimize_diet(foods, nutrients) {
         for (let nutrient_id in food.nutrients) {
             let nutrient = food.nutrients[nutrient_id]
 
-            food_vars['nut'+nutrient_id] = nutrient.value
+            food_vars['nut'+nutrient_id] = parseFloat(nutrient.value)
         }
 
         food_vars[foodInd] = 1
@@ -24,7 +24,7 @@ function optimize_diet(foods, nutrients) {
         solver_ints[foodInd] = 1
 
         let food_constraint = {
-            'min': food.servings_range[0]
+            'min': parseFloat(food.servings_range[0])
         }
 
         if (food.has_max_servings) {
@@ -47,6 +47,9 @@ function optimize_diet(foods, nutrients) {
 
         solver_constraints['nut'+nutrient_id] = nutrient_constraint
     }
+
+    // console.log(JSON.parse(JSON.stringify(solver_constraints)))
+    // console.log(JSON.parse(JSON.stringify(solver_vars)))
 
 
     let model = {

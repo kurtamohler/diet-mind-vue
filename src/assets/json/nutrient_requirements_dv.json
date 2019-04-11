@@ -2,10 +2,10 @@
   "203": {
     "name": "Protein",
     "unit": "g",
-    "active": false,
-    "min_value": 0,
-    "has_max_value": false,
-    "max_value": 0
+    "active": true,
+    "min_value": 45,
+    "has_max_value": true,
+    "max_value": 50
   },
   "204": {
     "name": "Total lipid (fat)",
@@ -138,7 +138,7 @@
   "291": {
     "name": "Fiber, total dietary",
     "unit": "g",
-    "active": false,
+    "active": true,
     "min_value": 25,
     "has_max_value": false,
     "max_value": 0
@@ -146,40 +146,40 @@
   "301": {
     "name": "Calcium, Ca",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 1000,
     "has_max_value": false,
     "max_value": 0
   },
   "303": {
     "name": "Iron, Fe",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 18,
     "has_max_value": false,
     "max_value": 0
   },
   "304": {
     "name": "Magnesium, Mg",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 400,
     "has_max_value": false,
     "max_value": 0
   },
   "305": {
     "name": "Phosphorus, P",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 1000,
     "has_max_value": false,
     "max_value": 0
   },
   "306": {
     "name": "Potassium, K",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 3500,
     "has_max_value": false,
     "max_value": 0
   },
@@ -187,23 +187,23 @@
     "name": "Sodium, Na",
     "unit": "mg",
     "active": true,
-    "min_value": 0,
-    "has_max_value": true,
-    "max_value": 2400
+    "min_value": 2400,
+    "has_max_value": false,
+    "max_value": 0
   },
   "309": {
     "name": "Zinc, Zn",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 15,
     "has_max_value": false,
     "max_value": 0
   },
   "312": {
     "name": "Copper, Cu",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 2,
     "has_max_value": false,
     "max_value": 0
   },
@@ -226,16 +226,16 @@
   "317": {
     "name": "Selenium, Se",
     "unit": "µg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 70,
     "has_max_value": false,
     "max_value": 0
   },
   "318": {
     "name": "Vitamin A, IU",
     "unit": "IU",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 5000,
     "has_max_value": false,
     "max_value": 0
   },
@@ -274,16 +274,16 @@
   "323": {
     "name": "Vitamin E (alpha-tocopherol)",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 30,
     "has_max_value": false,
     "max_value": 0
   },
   "324": {
     "name": "Vitamin D",
     "unit": "IU",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 400,
     "has_max_value": false,
     "max_value": 0
   },
@@ -386,64 +386,64 @@
   "401": {
     "name": "Vitamin C, total ascorbic acid",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 60,
     "has_max_value": false,
     "max_value": 0
   },
   "404": {
     "name": "Thiamin",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 1.5,
     "has_max_value": false,
     "max_value": 0
   },
   "405": {
     "name": "Riboflavin",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 1.7,
     "has_max_value": false,
     "max_value": 0
   },
   "406": {
     "name": "Niacin",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 20,
     "has_max_value": false,
     "max_value": 0
   },
   "410": {
     "name": "Pantothenic acid",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 10,
     "has_max_value": false,
     "max_value": 0
   },
   "415": {
     "name": "Vitamin B-6",
     "unit": "mg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 2,
     "has_max_value": false,
     "max_value": 0
   },
   "417": {
     "name": "Folate, total",
     "unit": "µg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 400,
     "has_max_value": false,
     "max_value": 0
   },
   "418": {
     "name": "Vitamin B-12",
     "unit": "µg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 6,
     "has_max_value": false,
     "max_value": 0
   },
@@ -458,8 +458,8 @@
   "430": {
     "name": "Vitamin K (phylloquinone)",
     "unit": "µg",
-    "active": false,
-    "min_value": 0,
+    "active": true,
+    "min_value": 80,
     "has_max_value": false,
     "max_value": 0
   },
