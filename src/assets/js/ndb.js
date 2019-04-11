@@ -83,20 +83,49 @@ function load_food_nutrients(ndbno, callback) {
     })
 }
 
+const nutrient_props_needed = [
+    // 'measures',
+    'name',
+    'nutrient_id',
+    'unit',
+    'value'
+]
+
 class Nutrient {
     constructor(nutrient_json) {
-        for (let prop in nutrient_json) {
-            this[prop] = nutrient_json[prop]
+        // let props = []
+        // for (let prop in nutrient_json) {
+        //     // props.push(prop)
+        //     this[prop] = nutrient_json[prop]
+        // }
+
+        // console.log(props)
+
+        for (let prop_ind in nutrient_props_needed) {
+            let prop = nutrient_props_needed[prop_ind]
+            if (nutrient_json.hasOwnProperty(prop)) {
+                this[prop] = nutrient_json[prop]
+            }
         }
     }
 }
 
+const food_props_needed = [
+    'name',
+    'ndbno'
+]
 
 class Food {
     constructor(food_json) {
-        for (let prop in food_json) {
-            this[prop] = food_json[prop]
+        for (let prop_ind in food_props_needed) {
+            let prop = food_props_needed[prop_ind]
+            if (food_json.hasOwnProperty(prop)) {
+                this[prop] = food_json[prop]
+            }
         }
+        // for (let prop in food_json) {
+        //     this[prop] = food_json[prop]
+        // }
 
         // If nutrients have not been loaded, don't load
         // them, but set up the nutrients object
