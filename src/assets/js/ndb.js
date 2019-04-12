@@ -111,8 +111,14 @@ class Nutrient {
 }
 
 const food_props_needed = [
+    'has_max_servings',
     'name',
-    'ndbno'
+    'ndbno',
+    'nutrients',
+    'nutrients_loaded',
+    'serving_amount',
+    'serving_unit',
+    'servings_range'
 ]
 
 class Food {
@@ -123,6 +129,7 @@ class Food {
                 this[prop] = food_json[prop]
             }
         }
+
         // for (let prop in food_json) {
         //     this[prop] = food_json[prop]
         // }
