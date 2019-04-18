@@ -2,64 +2,136 @@ export {optimize_diet}
 
 const solver = require('javascript-lp-solver')
 
-function optimize_diet(foods, nutrients) {
-    let solver_vars = {}
-    let solver_ints = {}
-    let solver_constraints = {}
+// Remove constraints incrementally to find out which could be removed
+// to get a feasible result
+function find_infeasible_constraints(solver, origModel) {
+    let infeasibleConstraints = {
+        'foods': [],
+        'nutrients': []
+    }
 
+    // Make a deep copy of the constraints so that we don't modify
+    // the original model
+    let model = {
+        'optimize': origModel.optimize,
+        'opType': origModel.opType,
+        'constraints': JSON.parse(JSON.stringify(origModel.constraints)),
+        'variables': origModel.variables,
+    }
+
+    let constraintTypes = ['min', 'max']
+
+    // Try disabling one constraint at a time and rerunning the solver
+    for (let key in model.constraints) {
+        let constraint = model.constraints[key]
+
+        for (let constraintTypeIdx in constraintTypes) {
+            let constraintType = constraintTypes[constraintTypeIdx]
+
+            if (constraint.hasOwnProperty(constraintType)) {
+                let savedConstraintVal = constraint[constraintType]
+                delete constraint[constraintType]
+
+                let result = solver.Solve(model)
+
+                if (result.feasible) {
+                    let infeasibleConstraint = {
+                        'type': constraintType,
+                        'name': constraint.name
+                    }
+
+                    infeasibleConstraints[constraint.isFood ? 'foods' : 'nutrients'].push(
+                        infeasibleConstraint
+                    )
+                }
+
+                constraint[constraintType] = savedConstraintVal
+            }
+        }
+    }
+
+    return infeasibleConstraints
+}
+
+// Use a linear program to find a minimal weight diet that gives all
+// the required nutrients
+function optimize_diet(foods, nutrients) {
+    let solverVars = {}
+    let solverConstraints = {}
+
+    // Add variables to the model for foods, and add their
+    // min/max value constraints
     for (let foodInd in foods) {
         let food = foods[foodInd]
-        let food_vars = {}
+        let foodVars = {}
 
-        for (let nutrient_id in food.nutrients) {
-            let nutrient = food.nutrients[nutrient_id]
+        // Add the nutrient amounts to the food variable
+        for (let nutrientId in food.nutrients) {
+            let nutrient = food.nutrients[nutrientId]
 
-            food_vars['nut'+nutrient_id] = parseFloat(nutrient.value)
+            foodVars['nut'+nutrientId] = parseFloat(nutrient.value)
         }
 
-        food_vars[foodInd] = 1
-        food_vars['weight'] = food.serving_amount
-        solver_vars[foodInd] = food_vars
+        // A food variable will have 1 of itself. If this is not set,
+        // the min/max for this food in the model constraints will not
+        // be used
+        foodVars[foodInd] = 1
 
-        solver_ints[foodInd] = 1
+        // Add the weight of the food so we can minimize the total weight
+        foodVars['weight'] = parseFloat(food.serving_amount)
 
-        let food_constraint = {
-            'min': parseFloat(food.servings_range[0])
+        solverVars[foodInd] = foodVars
+
+        // Set food min/max
+        let foodConstraint = {
+            'min': parseFloat(food.servings_range[0]),
+            'isFood': true,
+            'name': food.name
         }
 
         if (food.has_max_servings) {
-            food_constraint['max'] = food.servings_range[1]
+            foodConstraint['max'] = parseFloat(food.servings_range[1])
         }
 
-        solver_constraints[foodInd] = food_constraint
+        solverConstraints[foodInd] = foodConstraint
     }
 
-    for (let nutrient_id in nutrients) {
-        let nutrient = nutrients[nutrient_id]
+    // Set min/max values of nutrients
+    for (let nutrientId in nutrients) {
+        let nutrient = nutrients[nutrientId]
 
-        let nutrient_constraint = {}
+        let nutrientConstraint = {}
 
-        nutrient_constraint['min'] = nutrient.min_value
+        if (nutrient.min_value > 0) {
+            nutrientConstraint['min'] = parseFloat(nutrient.min_value)
+        }
 
         if (nutrient.has_max_value) {
-            nutrient_constraint['max'] = nutrient.max_value
+            nutrientConstraint['max'] = parseFloat(nutrient.max_value)
         }
 
-        solver_constraints['nut'+nutrient_id] = nutrient_constraint
+        // Only add the constraint if we set the min or max values
+        if (Object.keys(nutrientConstraint).length) {
+            nutrientConstraint['name'] = nutrient.name
+            nutrientConstraint['isFood'] = false
+            solverConstraints['nut'+nutrientId] = nutrientConstraint
+        }
     }
-
-    // console.log(JSON.parse(JSON.stringify(solver_constraints)))
-    // console.log(JSON.parse(JSON.stringify(solver_vars)))
-
 
     let model = {
         'optimize': 'weight',
         'opType': 'min',
-        'constraints': solver_constraints,
-        'variables': solver_vars,
+        'constraints': solverConstraints,
+        'variables': solverVars,
     }
 
     let result = solver.Solve(model)
+
+    // If the result is infeasible, attempt to find which constraints
+    // could be removed to result in a feasible solution
+    if (!result.feasible) {
+        result['infeasibleConstraints'] = find_infeasible_constraints(solver, model)
+    }
 
     return result
 }

@@ -42,10 +42,13 @@
     </v-btn>
 
     <v-card
-      :hidden="!optimizeResultReady"
+      :hidden="!optimizerResultReady"
       class="mt-2"
     >
       <v-layout row wrap>
+        <v-flex xs12 class="pa-2">
+          total weight: {{totalWeight.toFixed(2)}} g
+        </v-flex>
         <v-flex xs3 class="pa-2">
           <h3>Amount</h3>
         </v-flex>
@@ -71,14 +74,32 @@
     </v-card>
 
     <v-card
-      :hidden="!optimizeResultNotFeasible"
+      v-if="!optimizerResultFeasible"
       class="mt-2 pa-2"
     >
       Not feasible. Try adding more variety to your menu or slackening your nutrition constraints.
+      <div>
+        Try one of the following suggestions:
+        <div
+          v-for="(constraint, idx) in infeasibleConstraints.foods"
+          :key="idx"
+        >
+          <v-divider></v-divider>
+          {{constraint.type == "min" ? "lower minimum" : "raise maximum"}} of food "{{constriant.name}}"
+        </div>
+        <div
+          v-for="(constraint, idx) in infeasibleConstraints.nutrients"
+          :key="idx"
+        >
+          <v-divider></v-divider>
+          {{constraint.type == "min" ? "lower minimum" : "raise maximum"}} of nutrient "{{constraint.name}}"
+          {{constraint.type == "min" ? "or try adding a food that is high in this nutrient" : ""}}
+        </div>
+      </div>
     </v-card>
 
     <v-card
-      v-if="!optimizeResultNotFeasible && optimizeResultReady"
+      v-if="optimizerResultFeasible && optimizerResultReady"
       class="mt-2"
     >
       <v-card-title class="headline font-weight-regular">
@@ -89,7 +110,6 @@
         :nutrients="optimizedNutrients"
       ></NutritionDisplay>
     </v-card>
-
 
   </v-container>
 </template>
@@ -129,28 +149,27 @@ export default {
       ],
       selectedObjective: 'food weight',
       minimizeObjective: true,
-      optimizeResult: '',
-      optimizeResultReady: false,
+      optimizerResultReady: false,
       optimizedFoods: [],
-      optimizeResultNotFeasible: false,
-      optimizedNutrients: {}
+      optimizerResultFeasible: true,
+      optimizedNutrients: {},
+      totalWeight: 0,
     }
   },
 
   watch: {
     foods: {
       handler() {
-        // console.log(JSON.parse(JSON.stringify(this.foods, null, false)))
-        this.optimizeResultNotFeasible = false
-        this.optimizeResultReady = false
+        this.optimizerResultFeasible = true
+        this.optimizerResultReady = false
       },
       deep: true
     },
+
     nutrients: {
       handler() {
-        // console.log(this.nutrients)
-        this.optimizeResultNotFeasible = false
-        this.optimizeResultReady = false
+        this.optimizerResultFeasible = true
+        this.optimizerResultReady = false
       },
       deep: true
     }
@@ -158,80 +177,78 @@ export default {
 
   methods: {
     optimizeDiet: function() {
-      this.optimizeResultReady = false
-      this.optimizeResultNotFeasible = false
+      this.optimizerResultReady = false
+      this.optimizerResultFeasible = true
 
-      this.optimizeResult = diet_optimizer.optimize_diet(
+      let optimizerResult = diet_optimizer.optimize_diet(
         this.foods,
         this.nutrients
       )
 
-      // console.log(this.optimizeResult)
-
       this.optimizedFoods = []
       this.optimizedNutrients = {}
 
-
-      if (this.optimizeResult.feasible) {
-        for (let foodInd in this.foods) {
-          let food = this.foods[foodInd]
-
-          this.optimizedFoods[foodInd] = {
-            'unit': food.serving_unit,
-            'name': food.name,
-            'info': food
-          }
-
-          if (this.optimizeResult[foodInd]) {
-            let servings = this.optimizeResult[foodInd]
-            this.optimizedFoods[foodInd]['amount'] = 
-              (servings * food.serving_amount).toFixed(2)
-
-            // Calculate the totals for all nutrients
-            for (let nutrientID in food.nutrients) {
-              let nutrient = food.nutrients[nutrientID]
-
-              // console.log(nutrient)
-
-              if (!this.optimizedNutrients.hasOwnProperty(nutrientID)) {
-                this.optimizedNutrients[nutrientID] = {
-                  'name': nutrient.name,
-                  'unit': nutrient.unit,
-                  'value': 0
-                }
-              }
-
-              this.optimizedNutrients[nutrientID].value +=
-                nutrient.value * servings
-            }
-
-          } else {
-            this.optimizedFoods[foodInd]['amount'] = 0
-          }
-
-        }
-
-        // Trim extra decimals from nutrient amounts
-        for (let nutrientID in this.optimizedNutrients) {
-          let nutrient = this.optimizedNutrients[nutrientID]
-
-          nutrient.value = nutrient.value.toFixed(2)
-        }
-
-        // console.log(JSON.parse(JSON.stringify(this.optimizedNutrients, null, false)))
-
-
-        this.optimizeResultReady = true
+      if (optimizerResult.feasible) {
+        this.displayFeasibleSolution(optimizerResult)
 
       } else {
-        this.optimizeResultNotFeasible = true
+        this.optimizerResultFeasible = false
+        this.infeasibleConstraints = optimizerResult.infeasibleConstraints
+      }
+    },
+
+    displayFeasibleSolution: function(optimizerResult) {
+      this.totalWeight = 0
+
+      for (let foodInd in this.foods) {
+        let food = this.foods[foodInd]
+
+        this.optimizedFoods[foodInd] = {
+          'unit': food.serving_unit,
+          'name': food.name,
+          'info': food
+        }
+
+        if (optimizerResult[foodInd]) {
+          let servings = optimizerResult[foodInd]
+          let foodWeight = servings * food.serving_amount
+
+          this.optimizedFoods[foodInd]['amount'] = foodWeight.toFixed(2)
+          this.totalWeight += foodWeight
+            
+          // Calculate the totals for all nutrients
+          for (let nutrientID in food.nutrients) {
+            let nutrient = food.nutrients[nutrientID]
+
+            if (!this.optimizedNutrients.hasOwnProperty(nutrientID)) {
+              this.optimizedNutrients[nutrientID] = {
+                'name': nutrient.name,
+                'unit': nutrient.unit,
+                'value': 0
+              }
+            }
+
+            this.optimizedNutrients[nutrientID].value +=
+              nutrient.value * servings
+          }
+
+        } else {
+          this.optimizedFoods[foodInd]['amount'] = 0
+        }
       }
 
+      // Trim extra decimals from nutrient amounts
+      for (let nutrientID in this.optimizedNutrients) {
+        let nutrient = this.optimizedNutrients[nutrientID]
+
+        nutrient.value = nutrient.value.toFixed(2)
+      }
+
+      this.optimizerResultReady = true
     }
   }
 }
 </script>
-
 
 <style>
 </style>
