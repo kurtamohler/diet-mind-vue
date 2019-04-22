@@ -110,6 +110,7 @@ import Vue from 'vue'
 let nutrientGroups = require('../assets/json/nutrient_groups.json')
 
 let defaultNutrientReqs = require('../assets/json/nutrient_requirements_dv.json')
+let blankNutrientReqs = require('../assets/json/nutrient_requirements_base.json')
 
 export default {
   data: function () {
@@ -138,7 +139,7 @@ export default {
   created: function() {
     this.debouncedEmitNutrients = Vue.lodash.debounce(this.emitNutrients, 500)
 
-    this.nutrientReqs = defaultNutrientReqs
+    this.nutrientReqs = blankNutrientReqs 
 
     /*
     for (let group_name in this.nutrientGroups) {
