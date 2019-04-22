@@ -1,7 +1,8 @@
 <template>
   <v-container>
 
-    <v-card hidden class="mb-2">
+    <!--
+    <v-card class="mb-2">
       <v-card-title class="headline font-weight-regular">
         Objectives
       </v-card-title>
@@ -32,6 +33,7 @@
         </v-flex>
       </v-layout>
     </v-card>
+    -->
 
     <v-btn
       block

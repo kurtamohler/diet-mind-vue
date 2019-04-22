@@ -30,10 +30,10 @@
         </v-flex>
 
         <v-flex xs4 sm3 lg2>
+          <!--
           <v-btn
             icon
             small
-            hidden
           >
             <v-icon
               class="darken-2"
@@ -45,7 +45,6 @@
           <v-btn
             icon
             small
-            hidden
           >
             <v-icon
               class="darken-2"
@@ -53,6 +52,7 @@
               small
             >mdi-book-open</v-icon>
           </v-btn>
+          -->
 
           <v-btn
             small

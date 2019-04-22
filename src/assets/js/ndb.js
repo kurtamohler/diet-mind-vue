@@ -184,7 +184,8 @@ function search_foods(search_str, callback) {
         'q': search_str,
         'sort': 'r',
         'max': 100,
-        'offset': 0 
+        'offset': 0,
+        'ds': 'Standard Reference'
     }, function(resp_json) {
         let foods = []
         if (resp_json.hasOwnProperty('list')) {
