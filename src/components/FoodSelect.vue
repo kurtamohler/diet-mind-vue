@@ -228,16 +228,12 @@ export default {
     },
 
     loadDefaultMenu: function() {
-      // this.selectedFoods = defaultFoods
-      // this.selectedFoods.splice(0, 0)
-      // this.selectedFoods = []
+      this.selectedFoods = []
 
-      // for (let foodInd in defaultFoods) {
-      //   let food = JSON.parse(JSON.stringify(defaultFoods[foodInd]))
-      //   this.selectedFoods.push(food)
-      // }
-
-      this.selectedFoods = JSON.parse(JSON.stringify(defaultFoods))
+      for (let foodInd in defaultFoods) {
+        let food = new ndb.Food(JSON.parse(JSON.stringify(defaultFoods[foodInd])))
+        this.selectedFoods.push(food)
+      }
     }
   }
 
