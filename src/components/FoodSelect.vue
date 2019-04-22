@@ -6,7 +6,7 @@
       <!-- <v-card-title class="headline font-weight-regular">Your Menu</v-card-title> -->
       <v-layout row align-center>
 
-        <v-flex xs4 sm2 lg1>
+        <v-flex xs4 sm3 lg2>
           <v-btn
             icon
             small
@@ -21,15 +21,15 @@
           </v-btn>
         </v-flex>
 
-        <v-flex xs4 sm8 lg10 class="pa-0">
+        <v-flex xs4 sm6 lg8 class="pa-0">
           <v-btn
             flat
             block
             @click="menuCollapsed = !menuCollapsed"
-          >My Favorite Foods</v-btn>
+          >Menu</v-btn>
         </v-flex>
 
-        <v-flex xs4 sm2 lg1>
+        <v-flex xs4 sm3 lg2>
           <v-btn
             icon
             small
@@ -52,6 +52,14 @@
               color="blue"
               small
             >mdi-book-open</v-icon>
+          </v-btn>
+
+          <v-btn
+            small
+            color="info"
+            @click="loadDefaultMenu"
+          >
+           Load default
           </v-btn>
         </v-flex>
 
@@ -127,6 +135,7 @@
 import Vue from 'vue'
 import Food from './Food'
 import * as ndb from '../assets/js/ndb.js'
+let defaultFoods = require('../assets/json/default_menu.json')
 
 // TODO: I want to scroll to the food search input when a
 //       new list of search results comes in
@@ -165,7 +174,8 @@ export default {
 
   mounted() {
     if (localStorage.getItem('selectedFoods')) {
-      let selectedFoodsJSON = JSON.parse(localStorage.getItem('selectedFoods'))
+      let selectedFoodsStr = localStorage.getItem('selectedFoods')
+      let selectedFoodsJSON = JSON.parse(selectedFoodsStr)
 
       for (let ind = 0; ind < selectedFoodsJSON.length; ind++) {
         this.selectedFoods.push(new ndb.Food(selectedFoodsJSON[ind]))
@@ -215,6 +225,19 @@ export default {
 
     unselectFood: function(ind) {
       this.selectedFoods.splice(ind, 1)
+    },
+
+    loadDefaultMenu: function() {
+      // this.selectedFoods = defaultFoods
+      // this.selectedFoods.splice(0, 0)
+      // this.selectedFoods = []
+
+      // for (let foodInd in defaultFoods) {
+      //   let food = JSON.parse(JSON.stringify(defaultFoods[foodInd]))
+      //   this.selectedFoods.push(food)
+      // }
+
+      this.selectedFoods = JSON.parse(JSON.stringify(defaultFoods))
     }
   }
 

@@ -9,6 +9,15 @@
     -->
 
     <v-layout column>
+      <v-flex xs4>
+        <v-card class="mb-2" elevation="2">
+          <v-btn
+            small
+            @click="loadDefaultNutrients"
+            color="info"
+          >Load default</v-btn>
+        </v-card>
+      </v-flex>
       <v-flex xs12 sm6 lg4
         v-for="(nutrients_info, nutrient_group) in nutrientGroups"
         :key="nutrient_group"
@@ -113,9 +122,16 @@ export default {
   watch: {
     nutrientReqs: {
       handler() {
+        localStorage.setItem('selectedNutrients', JSON.stringify(this.nutrientReqs))
         this.debouncedEmitNutrients()
       },
       deep: true
+    }
+  },
+
+  mounted: function() {
+    if (localStorage.getItem('selectedNutrients')) {
+      this.nutrientReqs = JSON.parse(localStorage.getItem('selectedNutrients'))
     }
   },
 
@@ -156,6 +172,11 @@ export default {
   methods: {
     emitNutrients: function() {
       this.$emit('nutrientsSelected', this.nutrientReqs)
+    },
+
+    loadDefaultNutrients: function() {
+      this.nutrientReqs = JSON.parse(JSON.stringify(defaultNutrientReqs))
+
     }
   }
 }
