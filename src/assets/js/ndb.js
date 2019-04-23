@@ -1,4 +1,10 @@
-// A Javascript interface to the FDA's NDB
+// This file provides a Javascript interface to the USDA's NDB.
+
+// NDB is a database of many foods and their nutrient content.
+
+// This interface allows an application to search for foods in NDB
+// and get a complete list of nutrients in each food.
+
 export {search_foods, load_all_nutrients, Food};
 
 // The URL of NDB

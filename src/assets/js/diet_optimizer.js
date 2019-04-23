@@ -1,3 +1,18 @@
+// This file provides an interface for finding the optimal diet,
+// given a list of nutrient min/max values, and food min/max values.
+
+// The optimizer uses a linear program solver (javascript-lp-solver)
+// to output the values of each food that wil contain all the required
+// nutrients, with a minimal total weight of food.
+
+// If a solution is not feasible--ie, the nutrition constraints are too
+// strict or the list of foods does not contain a wide enough variety
+// of nutrients--then the optimizer will incrementally remove one
+// constraint and rerun the linear program solver. If one constraint can
+// be removed to give a feasible result, the returned object will contain
+// that information.
+
+
 export {optimize_diet}
 
 const solver = require('javascript-lp-solver')
