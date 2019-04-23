@@ -141,33 +141,7 @@ export default {
 
     this.nutrientReqs = blankNutrientReqs 
 
-    /*
-    for (let group_name in this.nutrientGroups) {
-      let group = this.nutrientGroups[group_name]
-      // console.log(group)
-
-      for (let ind in group) {
-        let id = group[ind].id
-        let name = group[ind].name
-        if (!this.nutrientReqs.hasOwnProperty(id)) {
-
-          // TODO: something is wrong if this happens
-
-          console.log(id + ': ' + name)
-
-
-
-          // this.nutrientReqs[id] = {
-          //   "name": name,
-          //   "active": false,
-          //   "min_value": 0,
-          //   "has_max_value": false,
-          //   "max_value": 0
-          // }
-        }
-      }
-    }
-    */
+    // TODO: should check if this.nutrientGroups is set up correctly
   },
 
   methods: {

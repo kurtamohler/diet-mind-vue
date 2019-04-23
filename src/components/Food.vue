@@ -133,12 +133,6 @@
 
     methods: {
       toggleDetails: function() {
-        // console.log(JSON.parse(JSON.stringify(this.food)))
-
-
-        // console.log(JSON.stringify(this.food.nutrients, null, 2))
-
-
         if (this.collapsed) {
           this.loadingDetails = true
 

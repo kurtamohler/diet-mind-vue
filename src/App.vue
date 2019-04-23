@@ -101,15 +101,11 @@ export default {
 
   methods: {
     foodsSelected: function(foods) {
-      // console.log('foods emitted')
       this.foods = foods
-      // console.log(JSON.parse(JSON.stringify(this.foods, null, true)))
     },
 
     nutrientsSelected: function(nutrients) {
-      // console.log('nutrients emitted')
       this.nutrients = nutrients
-      // console.log(JSON.parse(JSON.stringify(this.nutrients, null, true)))
     }
   }
 }

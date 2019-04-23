@@ -64,7 +64,6 @@ function load_food_nutrients(ndbno, callback) {
         'type': 'f'
     }, function(resp_json) {
         let nutrients_json = []
-        // console.log(JSON.parse(JSON.stringify(resp_json)))
 
         if (resp_json.hasOwnProperty('foods')) {
             let foods_json = resp_json['foods']
@@ -93,14 +92,6 @@ const nutrient_props_needed = [
 
 class Nutrient {
     constructor(nutrient_json) {
-        // let props = []
-        // for (let prop in nutrient_json) {
-        //     // props.push(prop)
-        //     this[prop] = nutrient_json[prop]
-        // }
-
-        // console.log(props)
-
         for (let prop_ind in nutrient_props_needed) {
             let prop = nutrient_props_needed[prop_ind]
             if (nutrient_json.hasOwnProperty(prop)) {
