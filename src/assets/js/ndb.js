@@ -121,10 +121,6 @@ class Food {
             }
         }
 
-        // for (let prop in food_json) {
-        //     this[prop] = food_json[prop]
-        // }
-
         // If nutrients have not been loaded, don't load
         // them, but set up the nutrients object
         if (!this.nutrients_loaded) {
