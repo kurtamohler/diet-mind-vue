@@ -160,7 +160,7 @@ export default {
 
     // Ensure min servings is positive and not greater than
     // the max servings. Change it if needed.
-    verifyMinServings: function(event) {
+    verifyMinServings: function() {
       let min = parseFloat(this.food.servings_range[0])
       let max = parseFloat(this.food.servings_range[1])
 
@@ -178,7 +178,7 @@ export default {
 
     // Ensure max servings is positive and not less than
     // the min servings. Change it if needed.
-    verifyMaxServings: function(event) {
+    verifyMaxServings: function() {
       let min = parseFloat(this.food.servings_range[0])
       let max = parseFloat(this.food.servings_range[1])
 
