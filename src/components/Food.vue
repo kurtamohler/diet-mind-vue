@@ -1,8 +1,10 @@
 <template>
   <div>
     <v-layout row wrap class="py-1">
-      <v-flex xs10 sm11 center-align>
-        <div class="text-sm-left">
+      <v-flex xs10 sm11>
+        <div
+          class="text-sm-left py-2"
+        >
           {{food.name}}
         </div>
       </v-flex>
