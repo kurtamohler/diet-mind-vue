@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-layout row wrap align-center class="py-1">
-      <v-flex xs10 sm11>
+    <v-layout row wrap class="py-1">
+      <v-flex xs10 sm11 center-align>
         <div class="text-sm-left">
           {{food.name}}
         </div>
@@ -135,8 +135,8 @@ export default {
   data: function() {
     return {
       collapsed: true,
-      collapsedTrueIcon: "mdi-dots-horizontal",
-      collapsedFalseIcon: "mdi-dots-vertical",
+      collapsedTrueIcon: "mdi-dots-vertical",
+      collapsedFalseIcon: "mdi-dots-horizontal",
       loadingDetailsIcon: "mdi-loading",
       loadingDetails: false
     }

@@ -29,17 +29,15 @@
     </v-toolbar>
 
     <v-content>
-
-
       <v-tabs>
         <v-tab ripple>
-          Your Menu
+          Menu
         </v-tab>
         <v-tab ripple>
-          Your Nutrition
+          Nutrition
         </v-tab>
         <v-tab ripple>
-          Your Diet
+          Diet
         </v-tab>
         <v-tab-item>
           <FoodSelect
@@ -112,11 +110,11 @@ export default {
 </script>
 
 <style>
-  /*
-    By default, vuetify always shows a scrollbar, even if it
-    isn't needed. This fixes that.
-  */
-  html {
-    overflow-y: auto
-  }
+/*
+  By default, vuetify always shows a scrollbar, even if it
+  isn't needed. This fixes that.
+*/
+html {
+  overflow-y: auto
+}
 </style>

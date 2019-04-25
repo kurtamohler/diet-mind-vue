@@ -2,11 +2,11 @@
   <v-container>
 
     <!-- Selected foods list -->
-    <v-card class="mb-2">
+    <v-card>
       <!-- <v-card-title class="headline font-weight-regular">Your Menu</v-card-title> -->
       <v-layout row align-center>
 
-        <v-flex xs4 sm3 lg2>
+        <v-flex xs2 xs1>
           <v-btn
             icon
             small
@@ -16,20 +16,12 @@
               class="darken-2"
               color="blue"
             >
-              {{menuCollapsed ? "mdi-dots-horizontal": "mdi-dots-vertical"}}
+              {{menuCollapsed ? "mdi-dots-vertical": "mdi-dots-horizontal"}}
             </v-icon>
           </v-btn>
         </v-flex>
 
-        <v-flex xs4 sm6 lg8 class="pa-0">
-          <v-btn
-            flat
-            block
-            @click="menuCollapsed = !menuCollapsed"
-          >Menu</v-btn>
-        </v-flex>
-
-        <v-flex xs4 sm3 lg2>
+        <v-flex xs10 sm11>
           <!--
           <v-btn
             icon
@@ -57,16 +49,47 @@
           <v-btn
             small
             color="info"
-            @click="loadDefaultMenu"
+            @click="loadDefaultFoods"
           >
            Load default
+          </v-btn>
+          <v-btn
+            small
+            color="error"
+            @click="clearFoods"
+          >
+          Clear
           </v-btn>
         </v-flex>
 
       </v-layout>
 
       <div
-          :hidden="menuCollapsed"
+        :hidden="!menuCollapsed"
+      >
+        <v-divider></v-divider>
+        <v-layout
+        >
+          <v-flex>
+            <v-btn
+              block
+              small
+              @click="menuCollapsed = false"
+            >
+              <v-icon>
+                mdi-arrow-collapse-down
+              </v-icon>
+              Expand
+              <v-icon>
+                mdi-arrow-collapse-down
+              </v-icon>
+            </v-btn>
+          </v-flex>
+        </v-layout>
+      </div>
+
+      <div
+        :hidden="menuCollapsed"
       >
         <v-layout row wrap
         >
@@ -94,7 +117,7 @@
     </v-card>
 
     <!-- Food search bar -->
-    <v-card>
+    <v-card class="mt-2">
       <v-layout row wrap>
         <v-flex xs12>
           <v-text-field
@@ -227,13 +250,17 @@ export default {
       this.selectedFoods.splice(ind, 1)
     },
 
-    loadDefaultMenu: function() {
-      this.selectedFoods = []
+    loadDefaultFoods: function() {
+      this.clearFoods()
 
       for (let foodInd in defaultFoods) {
         let food = new ndb.Food(JSON.parse(JSON.stringify(defaultFoods[foodInd])))
         this.selectedFoods.push(food)
       }
+    },
+
+    clearFoods: function() {
+      this.selectedFoods = []
     }
   }
 

@@ -1,13 +1,5 @@
 <template>
   <v-container>
-    <!--
-    <v-card>
-      <v-card-title class="headline font-weight-regular">
-        Your Nutrients
-      </v-card-title>
-    </v-card>
-    -->
-
     <v-layout column>
       <v-flex xs4>
         <v-card class="mb-2" elevation="2">
@@ -16,6 +8,11 @@
             @click="loadDefaultNutrients"
             color="info"
           >Load default</v-btn>
+          <v-btn
+            small
+            @click="clearNutrients"
+            color="error"
+          >Clear</v-btn>
         </v-card>
       </v-flex>
       <v-flex xs12 sm6 lg4
@@ -130,16 +127,15 @@ export default {
     }
   },
 
-  mounted: function() {
-    if (localStorage.getItem('selectedNutrients')) {
-      this.nutrientReqs = JSON.parse(localStorage.getItem('selectedNutrients'))
-    }
-  },
-
   created: function() {
     this.debouncedEmitNutrients = Vue.lodash.debounce(this.emitNutrients, 500)
 
-    this.nutrientReqs = blankNutrientReqs 
+    if (localStorage.getItem('selectedNutrients')) {
+      this.nutrientReqs = JSON.parse(localStorage.getItem('selectedNutrients'))
+
+    } else {
+      this.clearNutrients()
+    }
 
     // TODO: should check if this.nutrientGroups is set up correctly
   },
@@ -152,6 +148,10 @@ export default {
     loadDefaultNutrients: function() {
       this.nutrientReqs = JSON.parse(JSON.stringify(defaultNutrientReqs))
 
+    },
+
+    clearNutrients: function() {
+      this.nutrientReqs = JSON.parse(JSON.stringify(blankNutrientReqs))
     }
   }
 }

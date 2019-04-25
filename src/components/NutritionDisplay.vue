@@ -12,12 +12,14 @@
             <v-flex xs7>
               <b>{{nutrient_group}}</b>
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs5>
               Amount
             </v-flex>
+            <!--
             <v-flex xs2>
               %DV
             </v-flex>
+            -->
           </v-layout>
         </div>
         <div
@@ -37,7 +39,7 @@
                 nutrient_info['name']
               }}
             </v-flex>
-            <v-flex xs3>
+            <v-flex xs5>
               {{
                 nutrients[nutrient_info['id']] ?
                 nutrients[nutrient_info['id']].value : '-'
@@ -47,9 +49,11 @@
                 nutrients[nutrient_info['id']].unit : ''
               }}
             </v-flex>
+            <!--
             <v-flex xs2>
               ___%
             </v-flex>
+            -->
           </v-layout>
         </div>
       </v-card>
