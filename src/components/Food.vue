@@ -115,81 +115,81 @@
 
 
 <script>
-  import NutritionDisplay from './NutritionDisplay'
+import NutritionDisplay from './NutritionDisplay'
 
-  export default {
-    props: {
-      food: {
-        type: Object
-      },
-      showMinMaxSettings: {
-        type: Boolean,
-        default: false
+export default {
+  props: {
+    food: {
+      type: Object
+    },
+    showMinMaxSettings: {
+      type: Boolean,
+      default: false
+    }
+  },
+
+  components: {
+    NutritionDisplay
+  },
+
+  data: function() {
+    return {
+      collapsed: true,
+      collapsedTrueIcon: "mdi-dots-horizontal",
+      collapsedFalseIcon: "mdi-dots-vertical",
+      loadingDetailsIcon: "mdi-loading",
+      loadingDetails: false
+    }
+  },
+
+  methods: {
+    toggleDetails: function() {
+      if (this.collapsed) {
+        this.loadingDetails = true
+
+        // Load nutrients in case they haven't been yet
+        this.food.load_nutrients(() => {
+          this.loadingDetails = false
+          this.collapsed = false
+
+        })
+      } else {
+        this.collapsed = true
       }
     },
 
-    components: {
-      NutritionDisplay
-    },
+    // Ensure min servings is positive and not greater than
+    // the max servings. Change it if needed.
+    verifyMinServings: function(event) {
+      let min = parseFloat(this.food.servings_range[0])
+      let max = parseFloat(this.food.servings_range[1])
 
-    data: function() {
-      return {
-        collapsed: true,
-        collapsedTrueIcon: "mdi-dots-horizontal",
-        collapsedFalseIcon: "mdi-dots-vertical",
-        loadingDetailsIcon: "mdi-loading",
-        loadingDetails: false
+      if (isNaN(min) || min < 0) {
+        this.$set(
+          this.food.servings_range, 0, 0
+        )
+
+      } else if (this.food.has_max_servings && (min > max)) {
+        this.$set(
+          this.food.servings_range, 0, max
+        )
       }
     },
 
-    methods: {
-      toggleDetails: function() {
-        if (this.collapsed) {
-          this.loadingDetails = true
+    // Ensure max servings is positive and not less than
+    // the min servings. Change it if needed.
+    verifyMaxServings: function(event) {
+      let min = parseFloat(this.food.servings_range[0])
+      let max = parseFloat(this.food.servings_range[1])
 
-          // Load nutrients in case they haven't been yet
-          this.food.load_nutrients(() => {
-            this.loadingDetails = false
-            this.collapsed = false
-
-          })
-        } else {
-          this.collapsed = true
-        }
-      },
-
-      // Ensure min servings is positive and not greater than
-      // the max servings. Change it if needed.
-      verifyMinServings: function(event) {
-        let min = parseFloat(this.food.servings_range[0])
-        let max = parseFloat(this.food.servings_range[1])
-
-        if (isNaN(min) || min < 0) {
-          this.$set(
-            this.food.servings_range, 0, 0
-          )
-
-        } else if (this.food.has_max_servings && (min > max)) {
-          this.$set(
-            this.food.servings_range, 0, max
-          )
-        }
-      },
-
-      // Ensure max servings is positive and not less than
-      // the min servings. Change it if needed.
-      verifyMaxServings: function(event) {
-        let min = parseFloat(this.food.servings_range[0])
-        let max = parseFloat(this.food.servings_range[1])
-
-        if (this.food.has_max_servings && (isNaN(max) || max < min)) {
-          this.$set(
-            this.food.servings_range, 1, min
-          )
-        }
+      if (this.food.has_max_servings && (isNaN(max) || max < min)) {
+        this.$set(
+          this.food.servings_range, 1, min
+        )
       }
     }
   }
+}
 </script>
 
 <style>
