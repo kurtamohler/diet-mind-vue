@@ -119,11 +119,18 @@
     <!-- Food search bar -->
     <v-card class="mt-2">
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs12 class="px-4">
+          <v-switch
+            v-model="searchStandardReference"
+            label="Standard reference foods only"
+            @change="debouncedSearchFoods"
+          >
+          </v-switch>
+        </v-flex>
+        <v-flex xs12 class="px-4">
           <v-text-field
-            class="mx-4 mt-2"
             label="Search foods (key words or UPC)"
-            v-on:input="debouncedSearchFoods"
+            @input="debouncedSearchFoods"
             v-model="foodSearchTerm"
             id="#food-search-text-field"
             :loading="searchIsLoading"
@@ -175,7 +182,8 @@ export default {
       foodSearchResults: [],
       selectedFoods: [],
       searchIsLoading: false,
-      menuCollapsed: false
+      menuCollapsed: false,
+      searchStandardReference: true
     }
   },
 
@@ -226,9 +234,16 @@ export default {
 
       if (this.foodSearchTerm) {
         this.searchIsLoading = true
+        let options = {}
+
+        if (this.searchStandardReference) {
+          options['ds'] = 'Standard Reference'
+        }
+
         ndb.search_foods(
           this.foodSearchTerm,
-          this.updateSearchResults
+          this.updateSearchResults,
+          options
         )
 
       } else {

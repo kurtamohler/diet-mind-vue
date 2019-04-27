@@ -172,29 +172,37 @@ class Food {
 }
 
 // Search for a food by best matching string
-function search_foods(search_str, callback) {
-    ndb_query('search', {
+function search_foods(search_str, callback, options={}) {
+    let query = {
         'q': search_str,
         'sort': 'r',
         'max': 100,
-        'offset': 0,
-        'ds': 'Standard Reference'
-    }, function(resp_json) {
-        let foods = []
-        if (resp_json.hasOwnProperty('list')) {
-            let resp_list = resp_json.list
+        'offset': 0
+    }
 
-            if (resp_list.hasOwnProperty('item')) {
-                let foods_json = resp_list.item
+    for (let key in options) {
+        if (options.hasOwnProperty(key)) {
+            query[key] = options[key]
+        }
+    }
 
-                for (let ind = 0; ind < foods_json.length; ind++) {
-                    foods.push(new Food(foods_json[ind]))
+    ndb_query('search', query,
+        function(resp_json) {
+            let foods = []
+            if (resp_json.hasOwnProperty('list')) {
+                let resp_list = resp_json.list
+
+                if (resp_list.hasOwnProperty('item')) {
+                    let foods_json = resp_list.item
+
+                    for (let ind = 0; ind < foods_json.length; ind++) {
+                        foods.push(new Food(foods_json[ind]))
+                    }
                 }
             }
-        }
 
-        callback(foods)
-    })
+            callback(foods)
+        })
 }
 
 
