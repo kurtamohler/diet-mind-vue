@@ -17,7 +17,7 @@
     </v-navigation-drawer>
 
     <!-- navigation bar -->
-    <v-toolbar app>
+    <v-toolbar app dense extension-height="30">
       <v-toolbar-title class="headline text-uppercase">
         <span>DIET</span>
         <span class="font-weight-light blue--text">MIND</span>
@@ -29,6 +29,7 @@
 
       <template v-slot:extension>
         <v-tabs
+          height="30"
           v-model="selectedTab"
           centered
           color="transparent"
