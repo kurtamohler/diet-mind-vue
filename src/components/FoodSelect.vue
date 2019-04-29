@@ -1,27 +1,105 @@
 <template>
   <v-container>
-
-    <!-- Selected foods list -->
-    <v-card>
-      <!-- <v-card-title class="headline font-weight-regular">Your Menu</v-card-title> -->
-      <v-layout row align-center>
-
-        <v-flex xs2 xs1>
+    <!-- Food search bar -->
+    <!-- <v-card class="mb-2"> -->
+    <v-navigation-drawer
+      v-model="addFoodsOpen"
+      :hidden="!addFoodsOpen"
+      right
+      app
+      disable-resize-watcher
+      style="width:90%"
+    >
+      <v-layout row wrap>
+        <v-flex xs12>
           <v-btn
+            @click="addFoodsOpen=false"
             icon
-            small
-            @click="menuCollapsed = !menuCollapsed"
           >
-            <v-icon
-              class="darken-2"
-              color="blue"
-            >
-              {{menuCollapsed ? "mdi-dots-vertical": "mdi-dots-horizontal"}}
+            <v-icon color="light-blue" class="darken-2">
+              mdi-close
             </v-icon>
           </v-btn>
         </v-flex>
+        <v-flex xs12 class="px-4">
+          <v-switch
+            v-model="searchStandardReference"
+            label="Standard reference foods only"
+            @change="debouncedSearchFoods"
+          >
+          </v-switch>
+        </v-flex>
+        <v-flex xs12 class="px-4">
+          <v-text-field
+            label="Search foods (key words or UPC)"
+            @input="debouncedSearchFoods"
+            v-model="foodSearchTerm"
+            id="#food-search-text-field"
+            :loading="searchIsLoading"
+            clearable
+            clear-icon="mdi-close"
+          ></v-text-field>
+        </v-flex>
+        <v-flex xs12
+          v-for="(food, ind) in foodSearchResults"
+          :key="ind"
+        >
+          <v-divider></v-divider>
+          <v-layout row wrap>
+            <v-flex  xs2 sm1>
+              <v-btn icon small @click="selectFood(food)" :data="food">
+                <v-icon color="blue">mdi-plus</v-icon>
+              </v-btn>
+            </v-flex>
+            <v-flex xs10 sm10>
+              <Food :food="food"></Food>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+      </v-layout>
+    </v-navigation-drawer>
+    <!-- </v-card> -->
 
-        <v-flex xs10 sm11>
+
+    <!-- Selected foods list -->
+    <v-card>
+      <v-card-actions>
+        <v-layout row wrap>
+        <v-btn
+          icon
+          small
+          @click="menuCollapsed = !menuCollapsed"
+        >
+          <v-icon
+            class="darken-2"
+            color="blue"
+          >
+            {{menuCollapsed ? "mdi-dots-vertical": "mdi-dots-horizontal"}}
+          </v-icon>
+        </v-btn>
+        <v-btn
+          small
+          color="primary"
+          @click="addFoodsOpen=true"
+        >
+          Add food
+        </v-btn>
+
+        <v-spacer></v-spacer>
+        <v-btn
+          small
+          color="primary"
+          @click="loadDefaultFoods"
+        >
+          Load default
+        </v-btn>
+        <v-btn
+          small
+          color="error"
+          @click="clearFoods"
+        >
+          Clear
+        </v-btn>
           <!--
           <v-btn
             icon
@@ -45,24 +123,8 @@
             >mdi-book-open</v-icon>
           </v-btn>
           -->
-
-          <v-btn
-            small
-            color="info"
-            @click="loadDefaultFoods"
-          >
-           Load default
-          </v-btn>
-          <v-btn
-            small
-            color="error"
-            @click="clearFoods"
-          >
-          Clear
-          </v-btn>
-        </v-flex>
-
-      </v-layout>
+        </v-layout>
+      </v-card-actions>
 
       <div
         :hidden="!menuCollapsed"
@@ -116,47 +178,6 @@
       </div>
     </v-card>
 
-    <!-- Food search bar -->
-    <v-card class="mt-2">
-      <v-layout row wrap>
-        <v-flex xs12 class="px-4">
-          <v-switch
-            v-model="searchStandardReference"
-            label="Standard reference foods only"
-            @change="debouncedSearchFoods"
-          >
-          </v-switch>
-        </v-flex>
-        <v-flex xs12 class="px-4">
-          <v-text-field
-            label="Search foods (key words or UPC)"
-            @input="debouncedSearchFoods"
-            v-model="foodSearchTerm"
-            id="#food-search-text-field"
-            :loading="searchIsLoading"
-            clearable
-            clear-icon="mdi-close"
-          ></v-text-field>
-        </v-flex>
-        <v-flex xs12
-          v-for="(food, ind) in foodSearchResults"
-          :key="ind"
-        >
-          <v-divider></v-divider>
-          <v-layout row wrap>
-            <v-flex  xs2 sm1>
-              <v-btn icon small @click="selectFood(food)" :data="food">
-                <v-icon color="blue">mdi-plus</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex xs10 sm11>
-              <Food :food="food"></Food>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
-    </v-card>
-
   </v-container>
 </template>
 
@@ -183,7 +204,8 @@ export default {
       selectedFoods: [],
       searchIsLoading: false,
       menuCollapsed: false,
-      searchStandardReference: true
+      searchStandardReference: true,
+      addFoodsOpen: false
     }
   },
 
