@@ -4,11 +4,9 @@
     <!-- <v-card class="mb-2"> -->
     <v-navigation-drawer
       v-model="addFoodsOpen"
-      :hidden="!addFoodsOpen"
-      right
       app
       disable-resize-watcher
-      style="width:90%"
+      width="600"
     >
       <v-layout row wrap>
         <v-flex xs12>
@@ -20,6 +18,9 @@
               mdi-close
             </v-icon>
           </v-btn>
+        </v-flex>
+        <v-flex xs12 class="px-4">
+          <h2>Add a food</h2>
         </v-flex>
         <v-flex xs12 class="px-4">
           <v-switch
