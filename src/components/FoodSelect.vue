@@ -1,20 +1,23 @@
 <template>
   <v-container>
     <!-- Food search bar -->
-    <!-- <v-card class="mb-2"> -->
     <v-navigation-drawer
-      v-model="addFoodsOpen"
+      v-model="foodSearchOpen"
       app
       disable-resize-watcher
       width="600"
     >
       <v-layout row wrap>
-        <v-flex xs12>
+        <v-flex xs12 class="pa-2">
           <v-btn
-            @click="addFoodsOpen=false"
+            @click="foodSearchOpen=false"
             icon
           >
-            <v-icon color="light-blue" class="darken-2">
+            <v-icon
+              color="red"
+              class="darken-2"
+              large
+            >
               mdi-close
             </v-icon>
           </v-btn>
@@ -35,7 +38,7 @@
             label="Search foods (key words or UPC)"
             @input="debouncedSearchFoods"
             v-model="foodSearchTerm"
-            id="#food-search-text-field"
+            ref="foodSearchTextField"
             :loading="searchIsLoading"
             clearable
             clear-icon="mdi-close"
@@ -143,7 +146,7 @@
       bottom
       right
       color="primary"
-      @click="addFoodsOpen=true"
+      @click="openFoodSearch"
     >
       <v-icon>
         mdi-plus
@@ -176,7 +179,7 @@ export default {
       selectedFoods: [],
       searchIsLoading: false,
       searchStandardReference: true,
-      addFoodsOpen: false
+      foodSearchOpen: false
     }
   },
 
@@ -270,6 +273,11 @@ export default {
 
     clearFoods: function() {
       this.selectedFoods = []
+    },
+
+    openFoodSearch: function() {
+      this.foodSearchOpen = true
+      this.$refs.foodSearchTextField.focus()
     }
   }
 
