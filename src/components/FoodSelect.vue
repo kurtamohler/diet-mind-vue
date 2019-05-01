@@ -78,13 +78,6 @@
             {{menuCollapsed ? "mdi-dots-vertical": "mdi-dots-horizontal"}}
           </v-icon>
         </v-btn>
-        <v-btn
-          small
-          color="primary"
-          @click="addFoodsOpen=true"
-        >
-          Add food
-        </v-btn>
 
         <v-spacer></v-spacer>
         <v-btn
@@ -178,6 +171,27 @@
         </v-layout>
       </div>
     </v-card>
+
+    <div
+      id="food-select-bottom"
+      style="height:80px"
+    ></div>
+
+    <!-- button to add foods is fixed to the bottom so you
+      don't have to scroll through the page to get to it -->
+    <v-btn
+
+      fab
+      fixed
+      bottom
+      right
+      color="primary"
+      @click="addFoodsOpen=true"
+    >
+      <v-icon>
+        mdi-plus
+      </v-icon>
+    </v-btn>
 
   </v-container>
 </template>
@@ -281,6 +295,7 @@ export default {
       // Load the food's nutrients before adding it to selected foods array
       food.load_nutrients(() => {
         this.selectedFoods.push(food)
+        this.$vuetify.goTo("#food-select-bottom")
       })
     },
 
