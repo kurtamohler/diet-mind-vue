@@ -84,14 +84,14 @@
         Try one of the following suggestions:
         <div
           v-for="(constraint, idx) in infeasibleConstraints.foods"
-          :key="idx"
+          :key="'foodConstraint'+idx"
         >
           <v-divider></v-divider>
-          {{constraint.type == "min" ? "lower minimum" : "raise maximum"}} of food "{{constriant.name}}"
+          {{constraint.type == "min" ? "lower minimum" : "raise maximum"}} of food "{{constraint.name}}"
         </div>
         <div
           v-for="(constraint, idx) in infeasibleConstraints.nutrients"
-          :key="idx"
+          :key="'nutrientConstraint'+idx"
         >
           <v-divider></v-divider>
           {{constraint.type == "min" ? "lower minimum" : "raise maximum"}} of nutrient "{{constraint.name}}"
@@ -234,11 +234,7 @@ export default {
               nutrient.value * servings
           }
           this.optimizedFoods.push(optimizedFoodEntry)
-
-        // } else {
-        //   this.optimizedFoods[foodInd]['amount'] = 0
         }
-
       }
 
       // Trim extra decimals from nutrient amounts
