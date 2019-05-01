@@ -205,17 +205,17 @@ export default {
       for (let foodInd in this.foods) {
         let food = this.foods[foodInd]
 
-        this.optimizedFoods[foodInd] = {
-          'unit': food.serving_unit,
-          'name': food.name,
-          'info': food
-        }
 
         if (optimizerResult[foodInd]) {
+          let optimizedFoodEntry = {
+            'unit': food.serving_unit,
+            'name': food.name,
+            'info': food
+          }
           let servings = optimizerResult[foodInd]
           let foodWeight = servings * food.serving_amount
 
-          this.optimizedFoods[foodInd]['amount'] = foodWeight.toFixed(2)
+          optimizedFoodEntry['amount'] = foodWeight.toFixed(2)
           this.totalWeight += foodWeight
             
           // Calculate the totals for all nutrients
@@ -233,10 +233,12 @@ export default {
             this.optimizedNutrients[nutrientID].value +=
               nutrient.value * servings
           }
+          this.optimizedFoods.push(optimizedFoodEntry)
 
-        } else {
-          this.optimizedFoods[foodInd]['amount'] = 0
+        // } else {
+        //   this.optimizedFoods[foodInd]['amount'] = 0
         }
+
       }
 
       // Trim extra decimals from nutrient amounts
