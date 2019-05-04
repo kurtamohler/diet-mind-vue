@@ -56,50 +56,16 @@
         sm8
         v-if="showMinMaxSettings"
       >
-        <v-layout row align-center>
-          <v-flex
-            xs4
-            class="px-2"
-          >
-            <v-text-field
-              v-model.lazy="food.servings_range[0]"
-              type="number"
-              label="min servings"
-              class="noIncButtons"
-              @blur="verifyMinServings"
-              clearable
-            >
-            </v-text-field>
-          </v-flex>
-          <v-flex
-            xs4
-            class="px-2"
-          >
-            <v-text-field
-              v-model.lazy="food.servings_range[1]"
-              :disabled="!food.has_max_servings"
-              :hidden="!food.has_max_servings"
-              type="number"
-              label="max servings"
-              class="noIncButtons"
-              @blur="verifyMaxServings"
-              clearable
-            >
-            </v-text-field>
-          </v-flex>
-          <v-flex
-            xs4
-            class="px-2"
-          >
-            <v-switch
-              label="use max"
-              v-model="food.has_max_servings"
-              height="0"
-              @change="verifyMaxServings"
-              style="transform: scale(0.8); transform-origin: left"
-            ></v-switch>
-          </v-flex>
-        </v-layout>
+        <MinMaxSelect
+          :min="food.servings_range[0]"
+          :max="food.servings_range[1]"
+          :hasMax="food.has_max_servings"
+          minLabel="min servings"
+          maxLabel="max servings"
+          @min-changed="onMinChanged"
+          @max-changed="onMaxChanged"
+          @has-max-changed="onHasMaxChanged"
+        />
       </v-flex>
     </v-layout>
 
@@ -118,6 +84,7 @@
 
 <script>
 import NutritionDisplay from './NutritionDisplay'
+import MinMaxSelect from './MinMaxSelect'
 
 export default {
   props: {
@@ -131,7 +98,8 @@ export default {
   },
 
   components: {
-    NutritionDisplay
+    NutritionDisplay,
+    MinMaxSelect
   },
 
   data: function() {
@@ -160,35 +128,20 @@ export default {
       }
     },
 
-    // Ensure min servings is positive and not greater than
-    // the max servings. Change it if needed.
-    verifyMinServings: function() {
-      let min = parseFloat(this.food.servings_range[0])
-      let max = parseFloat(this.food.servings_range[1])
-
-      if (isNaN(min) || min < 0) {
-        this.$set(
-          this.food.servings_range, 0, 0
-        )
-
-      } else if (this.food.has_max_servings && (min > max)) {
-        this.$set(
-          this.food.servings_range, 0, max
-        )
-      }
+    onMinChanged: function(newVal) {
+      this.$set(
+        this.food.servings_range, 0, newVal
+      )
     },
 
-    // Ensure max servings is positive and not less than
-    // the min servings. Change it if needed.
-    verifyMaxServings: function() {
-      let min = parseFloat(this.food.servings_range[0])
-      let max = parseFloat(this.food.servings_range[1])
+    onMaxChanged: function(newVal) {
+      this.$set(
+        this.food.servings_range, 1, newVal
+      )
+    },
 
-      if (this.food.has_max_servings && (isNaN(max) || max < min)) {
-        this.$set(
-          this.food.servings_range, 1, min
-        )
-      }
+    onHasMaxChanged: function(newVal) {
+      this.food.has_max_servings = newVal
     }
   }
 }
