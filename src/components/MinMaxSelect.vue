@@ -1,36 +1,66 @@
 <template>
   <v-layout row align-center>
-    <v-flex xs4 class="px-2">
+    <v-flex xs5 class="pr-2">
       <v-text-field
         v-model="minVal"
         type="number"
         :label="minLabel"
         class="noIncButtons"
         @blur="verifyMin"
-        clearable
         clear-icon="mdi-close"
-      ></v-text-field>
+      >
+        <template v-slot:append>
+          <v-btn
+            icon
+            small
+            class="pa-0 ma-0"
+            style="width:16px"
+            @click="clearMin"
+          >
+            <v-icon
+              small
+            >mdi-close</v-icon>
+          </v-btn>
+        </template>
+      </v-text-field>
     </v-flex>
 
-    <v-flex xs4 class="px-2">
-      <v-text-field
-        v-model="maxVal"
-        :disabled="!hasMaxVal"
-        type="number"
-        :label="maxLabel"
-        class="noIncButtons"
-        @blur="verifyMax"
-        clearable
-        clear-icon="mdi-close"
-      ></v-text-field>
+    <v-flex xs5 class="pr-2">
+      <div
+        @click="enableMaxVal"
+      >
+        <v-text-field
+          v-model="maxVal"
+          :disabled="!hasMaxVal"
+          type="number"
+          :label="maxLabel"
+          class="noIncButtons"
+          @blur="verifyMax"
+          clear-icon="mdi-close"
+          ref="maxValInput"
+        >
+          <template v-slot:append>
+            <v-btn
+              icon
+              small
+              class="pa-0 ma-0"
+              style="width:16px"
+              @click="clearMax"
+            >
+              <v-icon
+                small
+              >mdi-close</v-icon>
+            </v-btn>
+          </template>
+        </v-text-field>
+      </div>
     </v-flex>
 
-    <v-flex xs4 class="px-2">
+    <v-flex xs2>
       <v-switch
         v-model="hasMaxVal"
-        label="use max"
         height="0"
-        @change="hasMaxChanged"
+        @change="onHasMaxChanged"
         class="scale80percent"
       ></v-switch>
     </v-flex>
@@ -112,19 +142,37 @@ export default {
       this.$emit('max-changed', this.maxVal)
     },
 
-    hasMaxChanged: function() {
+    onHasMaxChanged: function() {
       if (this.hasMaxVal) {
         this.verifyMax()
       }
 
       this.$emit('has-max-changed', this.hasMaxVal)
+    },
+
+    clearMin: function() {
+      this.minVal = ''
+    },
+
+    clearMax: function() {
+      this.maxVal = ''
+    },
+
+    enableMaxVal: function() {
+      if (!this.hasMaxVal) {
+        this.hasMaxVal = true
+        this.onHasMaxChanged()
+
+        // TODO: for some reason this does not work
+        this.$refs.maxValInput.focus()
+      }
     }
   }
 }
 </script>
 
 
-<style>
+<style scoped>
 .noIncButtons input[type='number'] {
   -moz-appearance:textfield;
 }
