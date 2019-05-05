@@ -108,7 +108,7 @@ export default {
       if (isNaN(min) || min < 0) {
         this.minVal = '0'
 
-      } else if (min > max) {
+      } else if (this.hasMaxVal && min > max) {
         // this.minVal = this.maxVal
         this.maxVal = this.minVal
         this.$emit('max-changed', this.minVal)
@@ -120,22 +120,25 @@ export default {
 
     // Ensure max servings is positive and not less than
     // the min servings. Change it if needed.
-    verifyMax: function() {
+    verifyMax: function(allowChangeMin=true) {
       let min = parseFloat(this.minVal)
       let max = parseFloat(this.maxVal)
 
       if (this.hasMaxVal) {
-
-        if (isNaN(max)){
-          this.maxVal = this.minVal
-
-        } else if (max < 0) {
+        if (isNaN(max) || max < 0) {
           this.maxVal = 0
+          max = 0
         }
 
         if (max < min) {
-          this.minVal = this.maxVal
-          this.$emit('min-changed', this.minVal)
+          if (allowChangeMin) {
+            console.log('here')
+            this.minVal = this.maxVal
+            this.$emit('min-changed', this.minVal)
+
+          } else {
+            this.maxVal = this.minVal
+          }
         }
       }
 
@@ -144,7 +147,7 @@ export default {
 
     onHasMaxChanged: function() {
       if (this.hasMaxVal) {
-        this.verifyMax()
+        this.verifyMax(false)
       }
 
       this.$emit('has-max-changed', this.hasMaxVal)
