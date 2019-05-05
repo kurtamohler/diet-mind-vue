@@ -132,7 +132,6 @@ export default {
 
         if (max < min) {
           if (allowChangeMin) {
-            console.log('here')
             this.minVal = this.maxVal
             this.$emit('min-changed', this.minVal)
 
