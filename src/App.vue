@@ -51,6 +51,7 @@
     <v-content>
       <v-tabs-items
         v-model="selectedTab"
+        touchless
       >
         <v-tab-item value="tab-1">
           <FoodSelect
