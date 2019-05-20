@@ -226,13 +226,38 @@ export default {
               this.optimizedNutrients[nutrientID] = {
                 'name': nutrient.name,
                 'unit': nutrient.unit,
-                'value': 0
+                'value': 0,
+                'food_contrib': []
               }
             }
 
-            this.optimizedNutrients[nutrientID].value +=
-              nutrient.value * servings
+            let food_nutrient_amount = nutrient.value * servings
+
+            if (food_nutrient_amount > 0) {
+              this.optimizedNutrients[nutrientID].value += food_nutrient_amount
+
+              this.optimizedNutrients[nutrientID].food_contrib.push({
+                'name': food.name,
+                'amount': food_nutrient_amount
+              })
+
+            }
           }
+
+          // Convert food_contrib to percentages
+          for (let nutrientID in food.nutrients) {
+            let nutrient = this.optimizedNutrients[nutrientID]
+            for (let foodContribIdx in this.optimizedNutrients[nutrientID].food_contrib) {
+              let percentage = 100.0 * nutrient.food_contrib[foodContribIdx].amount / nutrient.value
+              nutrient.food_contrib[foodContribIdx].percentage = percentage.toFixed(2)
+            }
+
+            // Sort percentages in ascending order
+            nutrient.food_contrib.sort(function(a, b) {
+              return b.percentage - a.percentage
+            })
+          }
+
           this.optimizedFoods.push(optimizedFoodEntry)
         }
       }

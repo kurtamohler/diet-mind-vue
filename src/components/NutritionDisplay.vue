@@ -15,11 +15,6 @@
             <v-flex xs5>
               Amount
             </v-flex>
-            <!--
-            <v-flex xs2>
-              %DV
-            </v-flex>
-            -->
           </v-layout>
         </div>
         <div
@@ -27,34 +22,12 @@
           :key="nutrient_info['id']"
         >
           <v-divider></v-divider>
-          <v-layout
-            row
-            wrap
-            align-center
-            class="pa-1"
-            :class="{dark: false}"
+          
+          <NutritionDisplayRow
+            :nutrient="nutrients[nutrient_info['id']]"
+            :nutrient_info="nutrient_info"
           >
-            <v-flex xs7 class="pr-1">
-              {{
-                nutrient_info['name']
-              }}
-            </v-flex>
-            <v-flex xs5>
-              {{
-                nutrients[nutrient_info['id']] ?
-                nutrients[nutrient_info['id']].value : '-'
-              }}
-              {{
-                nutrients[nutrient_info['id']] ?
-                nutrients[nutrient_info['id']].unit : ''
-              }}
-            </v-flex>
-            <!--
-            <v-flex xs2>
-              ___%
-            </v-flex>
-            -->
-          </v-layout>
+          </NutritionDisplayRow>
         </div>
       </v-card>
 
@@ -65,16 +38,22 @@
 
 <script>
 // import Vue from 'vue'
+import NutritionDisplayRow from './NutritionDisplayRow'
 let nutrientGroups = require('../assets/json/nutrient_groups.json')
 
 export default {
-  props: ['nutrients'],
+  components: {
+    NutritionDisplayRow
+  },
+  props: [
+    'nutrients'
+  ],
 
   data: function () {
     return {
       nutrientGroups: nutrientGroups
     }
-  }
+  },
 }
 </script>
 
