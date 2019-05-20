@@ -237,7 +237,7 @@ export default {
               this.optimizedNutrients[nutrientID].value += food_nutrient_amount
 
               this.optimizedNutrients[nutrientID].food_contrib.push({
-                'name': food.name,
+                'name': food.name + ' (' + foodWeight.toFixed(2) + ' ' + food.serving_unit +')',
                 'amount': food_nutrient_amount
               })
 
