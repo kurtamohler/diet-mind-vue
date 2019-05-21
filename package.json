@@ -9,8 +9,10 @@
     "test": "jest"
   },
   "dependencies": {
+    "chart.js": "^2.8.0",
     "javascript-lp-solver": "^0.4.5",
     "vue": "^2.6.10",
+    "vue-chartkick": "^0.5.0",
     "vue-lodash": "^2.0.2",
     "vue-scrollto": "^2.15.0",
     "vuetify": "^1.5.12"
