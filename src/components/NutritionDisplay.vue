@@ -25,7 +25,7 @@
           
           <NutritionDisplayRow
             :nutrient="nutrients[nutrient_info['id']]"
-            :nutrient_info="nutrient_info"
+            :nutrientInfo="nutrient_info"
           >
           </NutritionDisplayRow>
         </div>

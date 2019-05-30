@@ -221,13 +221,27 @@ export default {
           // Calculate the totals for all nutrients
           for (let nutrientID in food.nutrients) {
             let nutrient = food.nutrients[nutrientID]
-
             if (!this.optimizedNutrients.hasOwnProperty(nutrientID)) {
               this.optimizedNutrients[nutrientID] = {
                 'name': nutrient.name,
                 'unit': nutrient.unit,
                 'value': 0,
                 'food_contrib': []
+              }
+
+              var nutrient_req = this.nutrients[nutrientID]
+              var optimized_nutrient = this.optimizedNutrients[nutrientID]
+
+              // Add nutrient requirements because we will need to display them with the final report
+              if (nutrient_req) {
+                optimized_nutrient['has_max_value'] = nutrient_req['has_max_value']
+                optimized_nutrient['max_value'] = nutrient_req['max_value']
+                optimized_nutrient['min_value'] = nutrient_req['min_value']
+              } else {
+                optimized_nutrient['has_max_value'] = false
+                optimized_nutrient['max_value'] = 0
+                optimized_nutrient['min_value'] = 0
+
               }
             }
 

@@ -1,78 +1,129 @@
 <template>
-  <div
-  >
-    <v-layout
-      @click="show_contrib = !show_contrib"
-      v-ripple
-      row
-      wrap
-      align-center
-      class="pa-2"
-      :class="{dark: false}"
-    >
-      <v-flex xs7 class="pr-1">
-        {{
-          nutrient_info['name']
-        }}
-      </v-flex>
-      <v-flex xs5>
-        {{
-          nutrient ?
-          nutrient.value : '-'
-        }}
-        {{
-          nutrient ?
-          nutrient.unit : ''
-        }}
-      </v-flex>
-    </v-layout>
+  <div>
     <v-card
-      v-if="show_contrib && nutrient && nutrient.food_contrib"
-      class="mx-4 mb-3"
+      @click="showDetails = !showDetails"
+      :ripple="(nutrient && nutrient.food_contrib) ? true : false"
+      flat
+      class="pa-0 ma-0"
     >
-      <div class="light-blue darken-2 px-2 py-1 white--text">
-        <h4>Foods containing this nutrient</h4>
-      </div>
-      <div
+      <v-layout
+        row
+        wrap
+        align-center
         class="pa-2"
-        v-if="nutrient.value == 0"
       >
-        None
-      </div>
-
-      <div
-        class="py-2"
-        v-if="nutrient.value > 0"
-      >
-        <pie-chart
-          :data="contrib_chart_data"
-          :library="contrib_chart_options"
-        >
-        </pie-chart>
-      </div>
-
-      <div
-        v-for="(food, ind) in nutrient.food_contrib"
-        :key="ind"
-      >
-        <v-divider></v-divider>
-        <v-layout
-          row wrap
-          align-center
-          class="pa-2"
-        >
-          <v-flex xs9 class="pr-2">
-            {{food.name}} ({{food.weight}})
-          </v-flex>
-
-          <v-flex xs3 class="pl-1">
-            {{food.percentage}} %
-          </v-flex>
-        </v-layout>
-
-      </div>
-
+        <v-flex xs7 class="pr-1">
+          {{
+            nutrientInfo['name']
+          }}
+        </v-flex>
+        <v-flex xs5>
+          {{
+            nutrient ?
+            nutrient.value : '-'
+          }}
+          {{
+            nutrient ?
+            nutrient.unit : ''
+          }}
+        </v-flex>
+      </v-layout>
     </v-card>
+
+
+    <v-dialog
+      v-if="nutrient && nutrient.food_contrib"
+      v-model="showDetails"
+      scrollable
+    >
+
+    <!-- Table and pie chart of which foods contribute most to this nutrient amount -->
+      <v-card
+      >
+        <v-card-title>
+          <v-layout
+            row wrap
+          >
+            <v-flex xs10>
+              <h2 class="blue--text">
+                {{nutrientInfo['name']}},
+                {{nutrient.value}}
+                {{nutrient.unit}}
+              </h2>
+            </v-flex>
+
+            <v-flex class="text-xs-right" xs2>
+              <v-btn
+                @click="showDetails=false"
+                icon
+              >
+                <v-icon
+                  color="red"
+                  class="darken-2"
+                  large
+                >
+                  mdi-close
+                </v-icon>
+              </v-btn>
+            </v-flex>
+
+
+            <v-flex xs12>
+              {{minValueReport}}
+            </v-flex>
+
+            <v-flex v-if="nutrient.has_max_value" xs12>
+              {{maxValueReport}}
+            </v-flex>
+          </v-layout>
+        </v-card-title>
+
+        <v-card-text>
+          <div class="light-blue darken-2 px-2 py-1 white--text">
+            <h3>Nutrient amount contributions</h3>
+          </div>
+          <div
+            class="pa-2"
+            v-if="nutrient.value == 0"
+          >
+            None
+          </div>
+
+          <div
+            class="py-2"
+            v-if="nutrient.value > 0"
+          >
+            <pie-chart
+              :data="contrib_chart_data"
+              :library="contrib_chart_options"
+            >
+            </pie-chart>
+          </div>
+
+          <div
+            v-for="(food, ind) in nutrient.food_contrib"
+            :key="ind"
+          >
+            <v-divider></v-divider>
+            <v-layout
+              row wrap
+              align-center
+              class="pa-2"
+            >
+              <v-flex xs9 class="pr-2">
+                {{food.name}} ({{food.weight}})
+              </v-flex>
+
+              <v-flex xs3 class="pl-1">
+                {{food.percentage}} %
+              </v-flex>
+            </v-layout>
+
+          </div>
+        </v-card-text>
+
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -81,12 +132,12 @@
 export default {
   props: [
     'nutrient',
-    'nutrient_info'
+    'nutrientInfo'
   ],
 
   data: function () {
     return {
-      'show_contrib': false,
+      'showDetails': false,
       'contrib_chart_data': null,
       'contrib_chart_options': null
     }
@@ -99,7 +150,33 @@ export default {
     }
   },
 
+  computed: {
+    minValueReport: function() {
+      return this.genValueReqReport(
+        this.nutrient.min_value,
+        this.nutrient.value,
+        'min'
+      )
+    },
+
+    maxValueReport: function() {
+      return this.genValueReqReport(
+        this.nutrient.max_value,
+        this.nutrient.value,
+        'max'
+      )
+    }
+  },
+
   methods: {
+    genValueReqReport(reqVal, val, label) {
+      var percentage = 100.0 * val / reqVal 
+
+      // report = report + ' (' + percentage.toFixed(2) + ' %)'
+
+      return percentage.toFixed(2) + '% of ' + label + ' (' + reqVal.toString() + ' ' + this.nutrient.unit + ')'
+
+    },
     limitStrLen(str, l=20){
       if (str.length > l) {
         return str.substring(0, l) + '...'
