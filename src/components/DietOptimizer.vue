@@ -44,7 +44,7 @@
     </v-btn>
 
     <v-card
-      :hidden="!optimizerResultReady"
+      v-if="optimizerResultReady"
       class="mt-2"
     >
       <v-layout row wrap>
@@ -229,8 +229,8 @@ export default {
                 'food_contrib': []
               }
 
-              var nutrient_req = this.nutrients[nutrientID]
-              var optimized_nutrient = this.optimizedNutrients[nutrientID]
+              let nutrient_req = this.nutrients[nutrientID]
+              let optimized_nutrient = this.optimizedNutrients[nutrientID]
 
               // Add nutrient requirements because we will need to display them with the final report
               if (nutrient_req) {

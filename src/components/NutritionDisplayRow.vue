@@ -188,7 +188,7 @@ export default {
 
   methods: {
     genValueReqReport(reqVal, val, label) {
-      var percentage = 100.0 * val / reqVal 
+      let percentage = 100.0 * val / reqVal 
 
       // report = report + ' (' + percentage.toFixed(2) + ' %)'
 
