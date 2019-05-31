@@ -40,16 +40,21 @@
     <!-- Table and pie chart of which foods contribute most to this nutrient amount -->
       <v-card
       >
-        <v-card-title>
+        <v-card-title
+          class="grey darken-4"
+        >
           <v-layout
             row wrap
+            align-center
           >
             <v-flex xs10>
-              <h2 class="blue--text">
+              <div>
+              <h2 class="white--text">
                 {{nutrientInfo['name']}},
                 {{nutrient.value}}
                 {{nutrient.unit}}
               </h2>
+              </div>
             </v-flex>
 
             <v-flex class="text-xs-right" xs2>
@@ -66,22 +71,35 @@
                 </v-icon>
               </v-btn>
             </v-flex>
+          </v-layout>
+        </v-card-title>
 
-
-            <v-flex xs12>
-              {{minValueReport}}
+        <v-card-title
+          class="pb-1 pt-3"
+        >
+          <v-layout row wrap>
+            <v-flex xs12 pb-0>
+              <h4>{{minValueReport}}</h4>
             </v-flex>
 
-            <v-flex v-if="nutrient.has_max_value" xs12>
-              {{maxValueReport}}
+            <v-flex xs12
+              v-if="nutrient.has_max_value"
+              pb-2
+            >
+              <h4>{{maxValueReport}}</h4>
             </v-flex>
           </v-layout>
         </v-card-title>
 
-        <v-card-text>
-          <div class="light-blue darken-2 px-2 py-1 white--text">
-            <h3>Nutrient amount contributions</h3>
+        <v-card-title
+          class="light-blue darken-2 px-2 py-1 white--text"
+        >
+          <div class="px-2 py-1">
+            <h3>Food sources</h3>
           </div>
+        </v-card-title>
+
+        <v-card-text>
           <div
             class="pa-2"
             v-if="nutrient.value == 0"
