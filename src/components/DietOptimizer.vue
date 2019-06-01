@@ -38,7 +38,7 @@
     <v-btn
       block
       class="light-blue darken-2 white--text"
-      @click="optimizeDiet"
+      @click="clearAndOptimizeDiet"
     >
       Optimize!
     </v-btn>
@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import FoodList from './FoodList'
 import NutritionDisplay from './NutritionDisplay'
 import * as diet_optimizer from '../assets/js/diet_optimizer.js'
@@ -114,6 +115,10 @@ export default {
       type: Object,
       default: function(){return {}}
     }
+  },
+
+  created() {
+    this.debouncedOptimizeDiet = Vue.lodash.debounce(this.optimizeDiet, 100)
   },
 
   mounted() {
@@ -159,10 +164,13 @@ export default {
   },
 
   methods: {
-    optimizeDiet: function() {
+    clearAndOptimizeDiet: function() {
       this.optimizerResultReady = false
       this.optimizerResultFeasible = true
+      this.debouncedOptimizeDiet()
+    },
 
+    optimizeDiet: function() {
       let optimizerResult = diet_optimizer.optimize_diet(
         this.foods,
         this.nutrients
@@ -216,11 +224,11 @@ export default {
                 optimized_nutrient['has_max_value'] = nutrient_req['has_max_value']
                 optimized_nutrient['max_value'] = nutrient_req['max_value']
                 optimized_nutrient['min_value'] = nutrient_req['min_value']
+                
               } else {
                 optimized_nutrient['has_max_value'] = false
                 optimized_nutrient['max_value'] = 0
                 optimized_nutrient['min_value'] = 0
-
               }
             }
 
