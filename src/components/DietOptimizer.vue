@@ -44,35 +44,12 @@
     </v-btn>
 
     <v-card
-      v-if="optimizerResultReady"
       class="mt-2"
     >
-      <v-layout row wrap>
-        <v-flex xs12 class="pa-2">
-          total weight: {{totalWeight.toFixed(2)}} g
-        </v-flex>
-        <v-flex xs3 class="pa-2">
-          <h3>Amount</h3>
-        </v-flex>
-        <v-flex xs9 class="pa-2">
-          <h3>Food</h3>
-        </v-flex>
-
-        <v-flex xs12
-          v-for="(food, ind) in optimizedFoods"
-          :key="ind"
-        >
-          <v-divider></v-divider>
-          <v-layout row align-center>
-            <v-flex xs3 class="px-2">
-              {{food.amount}} {{food.unit}}
-            </v-flex>
-            <v-flex xs9 class="px-2">
-              <Food :food="food.info"></Food>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
+      <FoodList
+        v-if="optimizerResultReady"
+        :foods="optimizedFoods"
+      ></FoodList>
     </v-card>
 
     <v-card
@@ -117,13 +94,13 @@
 </template>
 
 <script>
-import Food from './Food'
+import FoodList from './FoodList'
 import NutritionDisplay from './NutritionDisplay'
 import * as diet_optimizer from '../assets/js/diet_optimizer.js'
 
 export default {
   components: {
-    Food,
+    FoodList,
     NutritionDisplay
   },
 
@@ -155,7 +132,6 @@ export default {
       optimizedFoods: [],
       optimizerResultFeasible: true,
       optimizedNutrients: {},
-      totalWeight: 0,
     }
   },
 
@@ -200,7 +176,6 @@ export default {
     },
 
     displayFeasibleSolution: function(optimizerResult) {
-      this.totalWeight = 0
 
       for (let foodInd in this.foods) {
         let food = this.foods[foodInd]
@@ -210,13 +185,12 @@ export default {
           let optimizedFoodEntry = {
             'unit': food.serving_unit,
             'name': food.name,
-            'info': food
+            'info': food,
           }
           let servings = optimizerResult[foodInd]
-          let foodWeight = servings * food.serving_amount
+          let foodAmount = servings * food.serving_amount
 
-          optimizedFoodEntry['amount'] = foodWeight.toFixed(2)
-          this.totalWeight += foodWeight
+          optimizedFoodEntry['amount'] = foodAmount
             
           // Calculate the totals for all nutrients
           for (let nutrientID in food.nutrients) {
@@ -252,7 +226,7 @@ export default {
 
               this.optimizedNutrients[nutrientID].food_contrib.push({
                 'name': food.name,
-                'weight': foodWeight.toFixed(2) + ' ' + food.serving_unit,
+                'weight': foodAmount.toFixed(2) + ' ' + food.serving_unit,
                 'amount': food_nutrient_amount
               })
 
