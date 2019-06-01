@@ -43,6 +43,18 @@
       Optimize!
     </v-btn>
 
+
+    <div
+      v-show="optimizerResultLoading"
+    >
+      <p>Optimizing...</p>
+      <v-progress-linear
+        indeterminate
+        height="2"
+      >
+      </v-progress-linear>
+    </div>
+
     <v-card
       class="mt-2"
       v-show="optimizerResultReady && optimizerResultFeasible"
@@ -136,6 +148,7 @@ export default {
       optimizerResultReady: false,
       optimizedFoods: [],
       optimizerResultFeasible: true,
+      optimizerResultLoading: false,
       optimizedNutrients: {},
       infeasibleConstraints: {
         'foods': [],
@@ -167,6 +180,7 @@ export default {
     clearAndOptimizeDiet: function() {
       this.optimizerResultReady = false
       this.optimizerResultFeasible = true
+      this.optimizerResultLoading = true
       this.debouncedOptimizeDiet()
     },
 
@@ -272,6 +286,7 @@ export default {
       }
 
       this.optimizerResultReady = true
+      this.optimizerResultLoading = false
     }
   }
 }
