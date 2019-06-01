@@ -45,15 +45,15 @@
 
     <v-card
       class="mt-2"
+      v-show="optimizerResultReady && optimizerResultFeasible"
     >
       <FoodList
-        v-if="optimizerResultReady"
         :foods="optimizedFoods"
       ></FoodList>
     </v-card>
 
     <v-card
-      v-if="!optimizerResultFeasible"
+      v-show="!optimizerResultFeasible"
       class="mt-2 pa-2"
     >
       Not feasible. Try adding more variety to your menu or slackening your nutrition constraints.
@@ -132,6 +132,11 @@ export default {
       optimizedFoods: [],
       optimizerResultFeasible: true,
       optimizedNutrients: {},
+      infeasibleConstraints: {
+        'foods': [],
+        'nutrients': []
+      }
+
     }
   },
 
