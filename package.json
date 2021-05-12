@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "chart.js": "^2.8.0",
+    "chart.js": "^2.9.4",
     "javascript-lp-solver": "^0.4.5",
     "vue": "^2.6.10",
     "vue-chartkick": "^0.5.0",
